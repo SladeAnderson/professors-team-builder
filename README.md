@@ -1,2 +1,0 @@
-# professors-team-builder
- 
