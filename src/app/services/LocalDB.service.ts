@@ -12,7 +12,7 @@ class LocalDB extends Dexie {
         super(name);
         this.version(1).stores({
             pokemonSummery: 'count',
-            halfPokemon: 'name,',
+            halfPokemon: 'name',
             // add Complete Pokemon Table
         })
     }

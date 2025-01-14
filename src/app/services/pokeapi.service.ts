@@ -2,9 +2,9 @@ import { Injectable } from "@angular/core";
 import localDB from "./professorsDatabase.service";
 import { pokemonSummery } from "../models/pokemonSummery.model";
 import { toSignal } from "@angular/core/rxjs-interop";
-import { concatMap, from, mergeMap, Observable, of, tap } from "rxjs";
+import { catchError, combineLatest, concatMap, from, mergeMap, Observable, of, tap } from "rxjs";
 import { HttpClient } from "@angular/common/http";
-import { halfPokemon } from "../models/pokemonList.model";
+import { halfPokemon, Link } from "../models/pokemonList.model";
 
 
 @Injectable({
@@ -42,25 +42,42 @@ export class Pokeapi {
         if (summary) {
             console.log(summary)
             const localDB$ = from(localDB.halfPokemon.toArray());
-    
+            const getPoke = (pokemon: Link) => {
+                return this.http.get<halfPokemon>(pokemon.url);
+            };
+            
             return localDB$.pipe(
+                tap((val)=>{
+                    console.log('asdf',val);
+                    
+                }),
                 concatMap((value)=>{
+                    console.log('this far',value);
                     if (value.length === 0) {
-                        
-                        summary.results.forEach(pokemon=>{
+                        const getHalf$ = summary.results.map(poke=>getPoke(poke));
     
-                            this.http.get<halfPokemon>(pokemon.url).pipe(
+                        return combineLatest(getHalf$).pipe(
                             concatMap((value)=>{
-                                localDB.halfPokemon.add(value);
-    
+                                console.log(value);
+
                                 return from(localDB.halfPokemon.toArray());
-                            }));
-    
-                        })
-    
+                            })
+                        )
                     }
                     return of(value);
-                })
+                }),
+                tap(pokeArr => {
+                    if (!!pokeArr.length) {
+                        localDB.halfPokemon.bulkAdd(pokeArr.filter(x=>!!x.name));
+                    }
+                }),
+                catchError((err, caught)=>{
+                    console.warn("halfPokeError", err);
+                    if (!!err.message) {
+                        return of([]);
+                    }
+                    return localDB$
+                }),
             )
 
         }
