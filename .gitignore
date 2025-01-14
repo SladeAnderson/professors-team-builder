@@ -44,4 +44,10 @@ Thumbs.db
 # Client Files
 
 client/.angular
-client/.vscode/*
+client/.vscode/
+
+# Server Files
+
+appsettings.json
+obj
+obj/debug
