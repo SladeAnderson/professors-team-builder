@@ -1,0 +1,10 @@
+{
+"SpaProxyServer": {
+"ServerUrl": "",
+"RedirectUrl": "",
+"LaunchCommand": "",
+"WorkingDirectory": "/home/slade/Desktop/Projects/professorsTeamBuilder/client/",
+"MaxTimeoutInSeconds": "120",
+"KeepRunning": "false"
+}
+}
