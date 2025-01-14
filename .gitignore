@@ -21,26 +21,26 @@ yarn-error.log
 *.sublime-workspace
 
 # Visual Studio Code
-.vscode/*
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
-.history/*
+/client/.vscode/*
+!/client/.vscode/settings.json
+!/client/.vscode/tasks.json
+!/client/.vscode/launch.json
+!/client/.vscode/extensions.json
+/client/.history/*
 
 # Miscellaneous
-/.angular/cache
-.sass-cache/
-/connect.lock
-/coverage
-/libpeerconnection.log
-testem.log
-/typings
+/client/.angular/cache
+/client/.sass-cache/
+/client/connect.lock
+/client/coverage
+/client/libpeerconnection.log
+/client/testem.log
+/client/typings
 
 # System files
 .DS_Store
 Thumbs.db
 
-# Other Stuff
+# Client Files
 
 /client/.angular
