@@ -7,7 +7,7 @@
 /bazel-out
 
 # Node
-/client/node_modules
+client/node_modules
 npm-debug.log
 yarn-error.log
 
@@ -21,21 +21,21 @@ yarn-error.log
 *.sublime-workspace
 
 # Visual Studio Code
-/client/.vscode/*
-!/client/.vscode/settings.json
-!/client/.vscode/tasks.json
-!/client/.vscode/launch.json
-!/client/.vscode/extensions.json
-/client/.history/*
+
+!client/.vscode/settings.json
+!client/.vscode/tasks.json
+!client/.vscode/launch.json
+!client/.vscode/extensions.json
+client/.history/*
 
 # Miscellaneous
-/client/.angular/cache
-/client/.sass-cache/
-/client/connect.lock
-/client/coverage
-/client/libpeerconnection.log
-/client/testem.log
-/client/typings
+client/.angular/cache
+client/.sass-cache/
+client/connect.lock
+client/coverage
+client/libpeerconnection.log
+client/testem.log
+client/typings
 
 # System files
 .DS_Store
@@ -43,4 +43,5 @@ Thumbs.db
 
 # Client Files
 
-/client/.angular
+client/.angular
+client/.vscode/*
