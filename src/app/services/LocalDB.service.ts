@@ -4,16 +4,17 @@ import { pokemonSummery } from "../models/pokemonSummery.model";
 import { halfPokemon } from "../models/pokemonList.model";
 
 class LocalDB extends Dexie {
-    pokemonSummery!: Dexie.Table<pokemonSummery, 'name'>;
-    halfPokemon!: Dexie.Table<halfPokemon, 'name'>;
+    pokemonSummery!: Dexie.Table<pokemonSummery, number>;
+    halfPokemon!: Dexie.Table<halfPokemon, number>;
+    // add Complete Pokemon Table
 
     constructor(name: string) {
         super(name);
-        this.version(4).stores({
-            pokemonSummery: 'name',
-            halfPokemon: 'name',
+        this.version(1).stores({
+            pokemonSummery: 'count',
+            halfPokemon: 'id,',
+            // add Complete Pokemon Table
         })
-
     }
 }
 
