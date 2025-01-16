@@ -32,21 +32,27 @@ class Program
 
         // ------ Database Stuff -----
 
-        
+        // get connSring        
         var location = "localDefualt";
 
         var connString = builder.Configuration.GetConnectionString(location);
-        
         
         if (connString == null) {
             Console.WriteLine("you must set your 'MONGODB_URI' environment variable. To learn how to set it, see https://www.mongodb.com/docs/drivers/csharp/current/quick-start/#set-your-connection-string");
             Environment.Exit(0);
         }
 
-        var client = new MongoClient(connString);
+        // makes new mongoDB settins
+        
+        var mongodSettings = MongoClientSettings.FromConnectionString(connString);
 
-        var pokemonTeamTool = client.GetDatabase("pokemon_Team_Builder").GetCollection<BsonDocument>("pokemonTeamTool");
+        mongodSettings.ServerApi = new ServerApi(ServerApiVersion.V1);
 
+        // Creates a new client and connects to the server
+        var mongodClient = new MongoClient(mongodSettings);
+
+        // getting the database from the mongoDB client.
+        var db = mongodClient.GetDatabase("pokemon_Team_Builder");
 
 
         builder.Services.Configure<IdentityOptions>(options => 
@@ -58,7 +64,6 @@ class Program
             options.Password.RequiredUniqueChars = 1;
             options.Password.RequiredLength = 6;
         });
-
 
         builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(options => options.TokenValidationParameters = new TokenValidationParameters{
@@ -92,14 +97,14 @@ class Program
             // mkcert <spaced apart addresses>
             // openssl pkcs12 -export -out <mydomains>.pfx -inkey <example.com+5-key>.pem -in <example.com+5>.pem 
     
-            // options.ListenLocalhost(5000, listenOptions =>
-            // {
-            //     listenOptions.UseHttps("nethost.pfx", "password");
-            // });
-            // options.Listen(System.Net.IPAddress.Parse("192.168.1.100"), 5000, listenOptions =>
-            // {
-            //     listenOptions.UseHttps("nethost.pfx", "password");
-            // });
+            options.ListenLocalhost(5200, listenOptions =>
+            {
+                // listenOptions.UseHttps("nethost.pfx", "password");
+            });
+            options.Listen(System.Net.IPAddress.Parse("192.168.1.212"), 5200, listenOptions =>
+            {
+                // listenOptions.UseHttps("nethost.pfx", "password");
+            });
         });
 
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -129,10 +134,8 @@ class Program
 
         string path;
 
-        path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot");
-
-        Console.WriteLine("Current Path: ", path);
-
+            path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot");
+        Console.WriteLine($"Current Path: {path}");
         app.UseStaticFiles(new StaticFileOptions 
         {
             FileProvider = new PhysicalFileProvider(path),
@@ -157,9 +160,9 @@ class Program
             spa.Options.SourcePath = "client";
             
             if (app.Environment.IsDevelopment()) {
-                spa.UseAngularCliServer(path);
+                spa.UseAngularCliServer(npmScript: "start");
             } else {
-                spa.Options.DefaultPage = "/app/index.html";
+                spa.Options.DefaultPage = "/src/index.html";
                 spa.Options.DefaultPageStaticFileOptions = new StaticFileOptions 
                 {
                     FileProvider = new PhysicalFileProvider(path),
