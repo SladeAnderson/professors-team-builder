@@ -52,7 +52,9 @@ class Program
         var mongodClient = new MongoClient(mongodSettings);
 
         // getting the database from the mongoDB client.
-        var db = mongodClient.GetDatabase("pokemon_Team_Builder");
+        var db = mongodClient.GetDatabase("pokemonData");
+
+
 
 
         builder.Services.Configure<IdentityOptions>(options => 
@@ -99,11 +101,11 @@ class Program
     
             options.ListenLocalhost(5200, listenOptions =>
             {
-                // listenOptions.UseHttps("nethost.pfx", "password");
+                listenOptions.UseHttps("nethost.pfx", "password");
             });
             options.Listen(System.Net.IPAddress.Parse("192.168.1.212"), 5200, listenOptions =>
             {
-                // listenOptions.UseHttps("nethost.pfx", "password");
+                listenOptions.UseHttps("nethost.pfx", "password");
             });
         });
 
@@ -160,9 +162,12 @@ class Program
             spa.Options.SourcePath = "client";
             
             if (app.Environment.IsDevelopment()) {
+                Console.WriteLine("this far!");
                 spa.UseAngularCliServer(npmScript: "start");
             } else {
-                spa.Options.DefaultPage = "/src/index.html";
+                Console.WriteLine("that far!");
+
+                spa.Options.DefaultPage = "/browser/index.html";
                 spa.Options.DefaultPageStaticFileOptions = new StaticFileOptions 
                 {
                     FileProvider = new PhysicalFileProvider(path),
