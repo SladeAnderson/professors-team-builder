@@ -20,17 +20,8 @@ class Program
     static void Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
-
-        //--------------- Add service to the container. ---------------
-        builder.Services.AddControllers();
-
         
-
-
-
-
-
-        // ------ Database Stuff -----
+        //--------------- database stuff ---------------\\
 
         // get connSring        
         var location = "localDefualt";
@@ -48,11 +39,17 @@ class Program
 
         mongodSettings.ServerApi = new ServerApi(ServerApiVersion.V1);
 
-        // Creates a new client and connects to the server
-        var mongodClient = new MongoClient(mongodSettings);
+        //--------------- Add service to the container. ---------------
+        builder.Services.AddControllers();
 
-        // getting the database from the mongoDB client.
-        var db = mongodClient.GetDatabase("pokemonData");
+        builder.Services.AddSingleton<IMongoClient>(sp => new MongoClient(mongodSettings));
+
+
+
+
+
+
+
 
 
 
@@ -77,11 +74,6 @@ class Program
                 ValidAudience = builder.Configuration["Jwt:Audience"],
                 IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
         });
-
-
-
-
-        // ---------------------------
 
         builder.Services.AddHttpContextAccessor();
 
