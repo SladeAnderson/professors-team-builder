@@ -28,7 +28,7 @@ namespace professorsTeamBuilder.models.DTO
         public List<PastTypeDTO>? Past_Types {get; set;}
         public SpritesDTO? Sprites {get; set;}
         public List<StatDTO>? Stats {get; set;}
-        public List<TypeDTO>? Types {get; set;}
+        public List<PkmnTypeDTO>? Types {get; set;}
     }
     public class AbilityDTO
     {
@@ -69,7 +69,7 @@ namespace professorsTeamBuilder.models.DTO
     public class PastTypeDTO
     {
         public LinkDTO? generation {get; set;}
-        public List<TypeDTO>? Types {get; set;}
+        public List<PkmnTypeDTO>? Types {get; set;}
     }
     public class SpritesDTO
     {
@@ -89,7 +89,7 @@ namespace professorsTeamBuilder.models.DTO
         public int Effort {get; set;}
         public LinkDTO? Stat {get; set;}
     }
-    public class TypeDTO
+    public class PkmnTypeDTO
     {
         public int Slot {get; set;}
         public LinkDTO? Type {get; set;}

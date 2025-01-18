@@ -28,7 +28,7 @@ namespace professorsTeamBuilder.models.Entities
         public List<PastTypeEntity>? Past_Types {get; set;}
         public SpritesEntity? Sprites {get; set;}
         public List<StatEntity>? Stats {get; set;}
-        public List<TypeEntity>? Types {get; set;}
+        public List<PkmnTypeEntity>? Types {get; set;}
     }
 
     public class AbilityEntity
@@ -42,6 +42,8 @@ namespace professorsTeamBuilder.models.Entities
         public int Game_index {get; set;}
         public LinkEntity? Version {get; set;}
     }
+
+    // held items
     public class Held_itemEntity
     {
         public LinkEntity? Item {get; set;}
@@ -54,6 +56,7 @@ namespace professorsTeamBuilder.models.Entities
         public LinkEntity? Version {get; set;}
     }
 
+    // moves
     public class MoveEntity
     {
         public LinkEntity? Move {get; set;}
@@ -67,11 +70,14 @@ namespace professorsTeamBuilder.models.Entities
         public LinkEntity? Move_learn_method {get; set;}
     }
 
+    // Past Types
     public class PastTypeEntity
     {
         public LinkEntity? generation {get; set;}
-        public List<TypeEntity>? Types {get; set;}
+        public List<PkmnTypeEntity>? Types {get; set;}
     }
+
+    // Sprites Object
     public class SpritesEntity
     {
         public string? Back_default {get; set;}
@@ -84,13 +90,17 @@ namespace professorsTeamBuilder.models.Entities
         public string? Front_shiny_default {get; set;}
 
     }
+
+    // stats
     public class StatEntity
     {
         public int Base_stat {get; set;}
         public int Effort {get; set;}
         public LinkEntity? Stat {get; set;}
     }
-    public class TypeEntity
+
+    // types
+    public class PkmnTypeEntity
     {
         public int Slot {get; set;}
         public LinkEntity? Type {get; set;}
