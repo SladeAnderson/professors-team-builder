@@ -29,7 +29,7 @@ class Program
         var connString = builder.Configuration.GetConnectionString(location);
         
         if (connString == null) {
-            Console.WriteLine("you must set your 'MONGODB_URI' environment variable. To learn how to set it, see https://www.mongodb.com/docs/drivers/csharp/current/quick-start/#set-your-connection-string");
+            Console.WriteLine("you must set your 'MONGODB_URI' environment variable. To learn how to set it.\n see https://www.mongodb.com/docs/drivers/csharp/current/quick-start/#set-your-connection-string");
             Environment.Exit(0);
         }
 
@@ -39,7 +39,7 @@ class Program
 
         mongodSettings.ServerApi = new ServerApi(ServerApiVersion.V1);
 
-        //--------------- Add service to the container. ---------------
+        //--------------- Add services to the container. ---------------
         builder.Services.AddControllers();
 
         builder.Services.AddSingleton<IMongoClient>(sp => new MongoClient(mongodSettings));

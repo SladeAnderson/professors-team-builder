@@ -13,25 +13,29 @@ namespace professorsTeamBuilder.Repositories
             _pokemonCollection = db.GetCollection<HalfPokemonDTO>("pokemon");
         }
 
-        public void GetAllHalfPkmn()
+        public List<HalfPokemonDTO> GetAllHalfPkmn()
         {
-
+            return (List<HalfPokemonDTO>)[];
         }
-        public void GetHalfPkmnByName(string name)
+        public HalfPokemonDTO GetHalfPkmnByName(string name)
         {
-
+            return new HalfPokemonDTO(){
+                Name = name,
+            };
         }
-        public void GetHalfPkmnById(int id)
+        public HalfPokemonDTO GetHalfPkmnById(int id)
         {
-
+            return new HalfPokemonDTO(){
+                Name ="teasd"
+            };
         }
-        public void GetHalfPkmnByArr(List<string> nameArr)
+        public List<HalfPokemonDTO> GetHalfPkmnByArr(List<string> nameArr)
         {
-
+            return (List<HalfPokemonDTO>)[];
         }
-        public void GetHalfPkmnByAmnt(int amount)
+        public List<HalfPokemonDTO> GetHalfPkmnByAmnt(int amount)
         {
-
+            return (List<HalfPokemonDTO>)[];
         }
 
 
