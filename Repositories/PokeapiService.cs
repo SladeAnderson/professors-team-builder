@@ -13,7 +13,7 @@ namespace professorsTeamBuilder.Repositories
         {
             var BaseAddress = http.BaseAddress = new Uri("https://pokeapi.co/api/v2/pokemon/");
             var res = await http.GetAsync($"{BaseAddress}/{name}");
-            var errMsg = res.EnsureSuccessStatusCode().;
+            var errMsg = res.EnsureSuccessStatusCode();
 
             HalfPokemonEntity? pokemon = await res.Content.ReadFromJsonAsync<HalfPokemonEntity>();
 
