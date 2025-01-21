@@ -11,6 +11,7 @@ using Swashbuckle.AspNetCore.Filters;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.OpenApi.Models;
+using professorsTeamBuilder.Repositories;
 
 
 namespace professorsTeamBuilder;
@@ -44,7 +45,8 @@ class Program
 
         builder.Services.AddSingleton<IMongoClient>(sp => new MongoClient(mongodSettings));
 
-
+        builder.Services.AddTransient<IPokeapiService>();
+        builder.Services.AddTransient
 
 
 

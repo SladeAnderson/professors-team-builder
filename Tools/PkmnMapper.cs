@@ -5,7 +5,7 @@ namespace professorsTeamBuilder.Tools
 {
     public static class PkmnMapper
     {
-        public static HalfPokemonDTO MapHalfPkmn(HalfPokemonEntity pkmn)
+        public static HalfPokemonDTO MapHalfPkmn(this HalfPokemonEntity pkmn)
         {
             return new HalfPokemonDTO()
             {
@@ -29,7 +29,7 @@ namespace professorsTeamBuilder.Tools
             };
         }
 
-        public static HalfPokemonEntity MapHalfPkmn(HalfPokemonDTO pkmn)
+        public static HalfPokemonEntity MapHalfPkmn(this HalfPokemonDTO pkmn)
         {
             return new HalfPokemonEntity()
             {
