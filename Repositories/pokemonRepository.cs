@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Mvc;
 using MongoDB.Driver;
 using professorsTeamBuilder.models.DTO;
 
@@ -13,9 +14,19 @@ namespace professorsTeamBuilder.Repositories
             _pokemonCollection = db.GetCollection<HalfPokemonDTO>("pokemon");
         }
 
+
         public List<HalfPokemonDTO> GetAllHalfPkmn()
         {
-            return (List<HalfPokemonDTO>)[];
+            if (_pokemonCollection.AsQueryable().Count() == 0) {
+                // call pokeapi cash and return the called pokemon
+                return (List<HalfPokemonDTO>)[];
+
+            } else {
+                return _pokemonCollection.AsQueryable().ToList();
+            }
+        
+
+        
         }
         public HalfPokemonDTO GetHalfPkmnByName(string name)
         {
@@ -42,8 +53,4 @@ namespace professorsTeamBuilder.Repositories
 
 
     }
-    public interface IPokemonService
-    {
-        
-    } 
 }
