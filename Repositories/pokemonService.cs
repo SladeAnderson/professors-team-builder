@@ -1,6 +1,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Driver;
+using MongoDB.Driver.Linq;
 using professorsTeamBuilder.models;
 using professorsTeamBuilder.models.DTO;
 using professorsTeamBuilder.models.Entities;
@@ -8,7 +9,7 @@ using professorsTeamBuilder.Tools;
 
 namespace professorsTeamBuilder.Repositories
 {
-    public class PokemonService
+    public class PokemonService : IPokemonService
     {
         private readonly IMongoCollection<HalfPokemonEntity> _pokemonCollection;
         private readonly IPokeapiService PokeapiService;
@@ -20,11 +21,12 @@ namespace professorsTeamBuilder.Repositories
             PokeapiService = pokeapiService;
         }
 
-
-        public List<HalfPokemonDTO> GetAllHalfPkmn(PkmnSummary summary)
+        public async Task<List<HalfPokemonDTO>> GetAllHalfPkmn(PkmnSummary summary)
         {
+            var _db = await _pokemonCollection.AsQueryable().ToListAsync();
+
             List<HalfPokemonDTO> pokemons = [];
-            if (_pokemonCollection.AsQueryable().Count() == 0) {
+            if (_db.Count == 0) {
                 
                 summary.Results.ForEach(async summary => {
                     var pkmn = await PokeapiService.GetPokemon(summary.Name ?? "");
@@ -37,7 +39,7 @@ namespace professorsTeamBuilder.Repositories
                 return pokemons;
 
             } else {
-                return _pokemonCollection.AsQueryable().ToList().Select(x=> x.MapHalfPkmn()).ToList();
+                return [.. _db.Select(x=> x.MapHalfPkmn())];
             }        
         }
         public async Task<HalfPokemonDTO> GetHalfPkmnByName(string name)
@@ -71,22 +73,18 @@ namespace professorsTeamBuilder.Repositories
             }
             return pkmn;
         }
-        public List<HalfPokemonDTO> GetHalfPkmnByArr(List<string> nameArr)
-        {
-            return (List<HalfPokemonDTO>)[];
-        }
-        public List<HalfPokemonDTO> GetHalfPkmnByAmnt(int amount)
-        {
-            return (List<HalfPokemonDTO>)[];
-        }
+        
+        // im not sure if i should make this could i cant just filter and paginate it on the front end.
+        // public List<HalfPokemonDTO> GetHalfPkmnByArr(List<string> nameArr)
+        // {
 
-
-
-
-    }
-
+        //     return (List<HalfPokemonDTO>)[];
+        // }    
+    }   
     public interface IPokemonService
     {
-       
+       public Task<List<HalfPokemonDTO>> GetAllHalfPkmn(PkmnSummary summary);
+       public Task<HalfPokemonDTO> GetHalfPkmnByName(string name);
+       public Task<HalfPokemonDTO> GetHalfPkmnById(int id);
     }
 }

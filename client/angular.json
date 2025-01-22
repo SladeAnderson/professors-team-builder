@@ -34,6 +34,8 @@
               "src/styles.scss"
             ],
             "scripts": []
+            
+            
           },
           "configurations": {
             "production": {
@@ -66,7 +68,8 @@
               "buildTarget": "professorsTeamBuilder:build:production"
             },
             "development": {
-              "buildTarget": "professorsTeamBuilder:build:development"
+              "buildTarget": "professorsTeamBuilder:build:development",
+              "port": 4200
             }
           },
           "defaultConfiguration": "development"
@@ -92,7 +95,12 @@
             ],
             "scripts": []
           }
+        },
+        "options": {
+          "defaultConfiguration": "development"
         }
+        
+      
       }
     }
   },

@@ -43,12 +43,12 @@ class Program
         //--------------- Add services to the container. ---------------
         builder.Services.AddControllers();
 
+        builder.Services.AddHttpClient();
+
         builder.Services.AddSingleton<IMongoClient>(sp => new MongoClient(mongodSettings));
-
-        builder.Services.AddTransient<IPokeapiService>();
-        builder.Services.AddTransient
-
-
+        
+        builder.Services.AddTransient<IPokeapiService,PokeapiService>();
+        builder.Services.AddTransient<IPokemonService,PokemonService>();
 
 
 
@@ -56,6 +56,7 @@ class Program
 
 
 
+       
         builder.Services.Configure<IdentityOptions>(options => 
         {
             options.Password.RequireDigit = false;
@@ -117,6 +118,8 @@ class Program
             
         });
 
+        builder.WebHost.UseUrls("https://localhost:5200");
+
         var app = builder.Build();
 
         if (app.Environment.IsDevelopment()) {
@@ -154,10 +157,11 @@ class Program
         app.UseSpa(spa => 
         {
             spa.Options.SourcePath = "client";
+
             
             if (app.Environment.IsDevelopment()) {
                 Console.WriteLine("this far!");
-                spa.UseAngularCliServer(npmScript: "start");
+                spa.UseProxyToSpaDevelopmentServer("http://localhost:4200");
             } else {
                 Console.WriteLine("that far!");
 

@@ -8,7 +8,6 @@ namespace professorsTeamBuilder.Repositories
 {
     public class PokeapiService(HttpClient http) : IPokeapiService
     {
-
         public async Task<HalfPokemonEntity> GetPokemon(string name) 
         {
             var BaseAddress = new Uri("https://pokeapi.co/api/v2/pokemon/");
@@ -59,9 +58,7 @@ namespace professorsTeamBuilder.Repositories
 
     public interface IPokeapiService
     {
-        public Task<HalfPokemonEntity> GetPokemon(string name);
+        public  Task<HalfPokemonEntity> GetPokemon(string name);
         public Task<HalfPokemonEntity> GetPokemon(int id);
-
-        // add the other info calls later!
     }
 }
