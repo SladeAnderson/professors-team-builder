@@ -160,10 +160,8 @@ class Program
 
             
             if (app.Environment.IsDevelopment()) {
-                Console.WriteLine("this far!");
                 spa.UseProxyToSpaDevelopmentServer("http://localhost:4200");
             } else {
-                Console.WriteLine("that far!");
 
                 spa.Options.DefaultPage = "/browser/index.html";
                 spa.Options.DefaultPageStaticFileOptions = new StaticFileOptions 
