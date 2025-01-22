@@ -43,12 +43,11 @@ export class Pokeapi {
             console.log(summary)
             const localDB$ = from(localDB.halfPokemon.toArray());
             const getPoke = (pokemon: Link) => {
-                return this.http.get<halfPokemon>(pokemon.url);
+                return this.http.get<halfPokemon>("api/PkmnController/");
             };
             
             return localDB$.pipe(
                 concatMap((value)=>{
-                    console.log('this far',value);
                     if (value.length === 0) {
                         const getHalf$ = summary.map(poke=>getPoke(poke));
     
@@ -86,31 +85,7 @@ export class Pokeapi {
         return new Observable<halfPokemon[]>;
     }
 
-    getHalfPokemonByName$(summary:pokemonSummery[],name:string):Observable<halfPokemon> {
-        
-        const summaryResults = summary.flatMap(summary=>summary.results);
-
-        summaryResults.forEach(pokemon=>{
-            if (pokemon.name === name) {
-                const localpoke = from(localDB.halfPokemon.get(name))
-
-                localpoke.pipe(
-                    tap(value=>{
-                        if (value) {
-                            return of(value);
-                        } else {
-                            return this.http.get<halfPokemon>(pokemon.url).pipe(
-                            tap(value=>{
-                                localDB.halfPokemon.add(value)
-                            }))
-                        }
-                    })
-                )
-            }
-        });
-
-        return new Observable<halfPokemon>;
-    }
+   
 
 
 }
