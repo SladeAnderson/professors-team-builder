@@ -10,29 +10,28 @@ namespace professorsTeamBuilder.Controllers
 {
     [ApiController]
     [Route("api/[controller]/[action]")]
-    public class PkmnController : ControllerBase
+    public class Pkmn : ControllerBase
     {
         private readonly IPokemonService PkmnService;
         
-        public PkmnController(IPokemonService pokemonService) 
+        public Pkmn(IPokemonService pokemonService) 
         {
             this.PkmnService = pokemonService;
         }
 
-        [HttpPost("{summary}")]
-        public async Task<IActionResult> GetAllPkmn(PkmnSummary summary)
+        [HttpPost]
+        public async Task<IActionResult> GetAllPkmn([FromBody] PkmnSummary summary)
         {
-            var HalfPkmns = await PkmnService.GetAllHalfPkmn(summary);
+            Console.WriteLine("------------------------------------");
+            var halfPkmns = await PkmnService.GetAllHalfPkmn(summary);
 
-            if (HalfPkmns != null)
-            {
-                return Ok(HalfPkmns);
-            }
-            return NotFound();
+            Console.WriteLine("fetching...");
+
+            return halfPkmns != null ? Ok(halfPkmns) : NotFound();
         }
 
         [HttpPost("{name}")]
-        public async Task<IActionResult> GetByName(string name)
+        public async Task<IActionResult> GetByName([FromBody] string name)
         {
             var HalfPkmn = await PkmnService.GetHalfPkmnByName(name);
 
@@ -44,7 +43,7 @@ namespace professorsTeamBuilder.Controllers
         }
 
         [HttpPost("{id}")]
-        public async Task<IActionResult> GetById(int id)
+        public async Task<IActionResult> GetById([FromBody] int id)
         {
             var HalfPkmn = await PkmnService.GetHalfPkmnById(id);
 

@@ -53,9 +53,6 @@ class Program
 
 
 
-
-
-
        
         builder.Services.Configure<IdentityOptions>(options => 
         {
@@ -118,7 +115,7 @@ class Program
             
         });
 
-        builder.WebHost.UseUrls("https://localhost:5200");
+        // builder.WebHost.UseUrls("https://localhost:5200");
 
         var app = builder.Build();
 
