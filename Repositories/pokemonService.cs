@@ -12,24 +12,29 @@ namespace professorsTeamBuilder.Repositories
     public class PokemonService : IPokemonService
     {
         private readonly IMongoCollection<HalfPokemonEntity> _pokemonCollection;
-        private readonly IPokeapiService PokeapiService;
+        private readonly IPokeapiService _PokeapiService;
 
         public PokemonService(IMongoClient mongoClient, IPokeapiService pokeapiService)
         {
-            var db = mongoClient.GetDatabase("pokemonData");
-            _pokemonCollection = db.GetCollection<HalfPokemonEntity>("pokemon");
-            PokeapiService = pokeapiService;
+            var db = mongoClient.GetDatabase("pokemon_Team_Builder");
+            _pokemonCollection = db.GetCollection<HalfPokemonEntity>("pokemonData");
+            _PokeapiService = pokeapiService;
         }
 
         public async Task<List<HalfPokemonDTO>> GetAllHalfPkmn(PkmnSummary summary)
         {
-            var _db = await _pokemonCollection.AsQueryable().ToListAsync();
+            Console.WriteLine("started");
+
+            var db = await _pokemonCollection.AsQueryable().ToListAsync();
+
+            Console.WriteLine("made db");
+
 
             List<HalfPokemonDTO> pokemons = [];
-            if (_db.Count == 0) {
-                
+            if (db.Count == 0) {
+                Console.WriteLine("it here");
                 summary.Results.ForEach(async summary => {
-                    var pkmn = await PokeapiService.GetPokemon(summary.Name ?? "");
+                    var pkmn = await _PokeapiService.GetPokemon(summary.Name ?? "");
 
                     _pokemonCollection.InsertOne(pkmn);
                     pokemons.Add(pkmn.MapHalfPkmn());
@@ -39,14 +44,14 @@ namespace professorsTeamBuilder.Repositories
                 return pokemons;
 
             } else {
-                return [.. _db.Select(x=> x.MapHalfPkmn())];
+                return [.. db.Select(x=> x.MapHalfPkmn())];
             }        
         }
         public async Task<HalfPokemonDTO> GetHalfPkmnByName(string name)
         {
             HalfPokemonDTO pokemon = _pokemonCollection.Find(x=> x.Name == name).First().MapHalfPkmn();
             if (pokemon == null) {
-                HalfPokemonEntity pkmn = await PokeapiService.GetPokemon(name);
+                HalfPokemonEntity pkmn = await _PokeapiService.GetPokemon(name);
                 
                 if (pkmn != null) {
                     Console.WriteLine($"Found Pkmn!\n ID:{pkmn.Id} name: {pkmn.Name}");
@@ -63,7 +68,7 @@ namespace professorsTeamBuilder.Repositories
             HalfPokemonDTO pkmn = _pokemonCollection.Find(x => x.Id == id).First().MapHalfPkmn();
 
             if (pkmn == null) {
-                HalfPokemonEntity pokemon = await PokeapiService.GetPokemon(id);
+                HalfPokemonEntity pokemon = await _PokeapiService.GetPokemon(id);
 
                 if (pokemon != null) {
                     _pokemonCollection.InsertOne(pokemon);
