@@ -59,9 +59,15 @@ namespace professorsTeamBuilder.Repositories
                     return pkmn.MapHalfPkmn();
                 }
                 Console.WriteLine("Could not find the pkmn!");
+            } else {
+                Console.WriteLine("Found cashed Pkmn!\n ID:{pkmn.Id} name: {pkmn.Name}");
+                return pokemon;
             }
-            Console.WriteLine("Found cashed Pkmn!\n ID:{pkmn.Id} name: {pkmn.Name}");
-            return pokemon;
+
+            Console.WriteLine("Could not find pkmn!");
+            return new HalfPokemonDTO(){
+                Name = ""
+            };
         }
         public async Task<HalfPokemonDTO> GetHalfPkmnById(int id)
         {
@@ -75,8 +81,15 @@ namespace professorsTeamBuilder.Repositories
                     return pokemon.MapHalfPkmn();
                 }
                 Console.WriteLine("Could not find pkmn by provided ID");
+            } else {
+                Console.WriteLine("Found cashed Pkmn!\n ID:{pkmn.Id} name: {pkmn.Name}");
+                return pkmn;
             }
-            return pkmn;
+
+            Console.WriteLine("Could not find pkmn!");
+            return new HalfPokemonDTO() {
+                Name = ""
+            };
         }
         
         // im not sure if i should make this could i cant just filter and paginate it on the front end.
