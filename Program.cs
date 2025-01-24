@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.SpaServices;
 using Microsoft.EntityFrameworkCore;
 using MongoDB.Driver;
 using MongoDB.Bson;
+using MongoDB.Driver.Core;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
@@ -130,11 +131,11 @@ class Program
         app.UseAuthorization();
 
 
-        app.MapDefaultControllerRoute();
-        // app.UseEndpoints(endpoints => 
-        // {
-        //     endpoints.MapDefaultControllerRoute();
-        // });
+        // app.MapDefaultControllerRoute();
+        app.UseEndpoints(endpoints => 
+        {
+            endpoints.MapDefaultControllerRoute();
+        });
 
         app.UseSpaStaticFiles();
 
@@ -144,6 +145,7 @@ class Program
 
             
             if (app.Environment.IsDevelopment()) {
+                // spa.UseAngularCliServer("start");
                 spa.UseProxyToSpaDevelopmentServer("http://localhost:4200");
             } else {
 

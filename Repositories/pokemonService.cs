@@ -16,8 +16,8 @@ namespace professorsTeamBuilder.Repositories
 
         public PokemonService(IMongoClient mongoClient, IPokeapiService pokeapiService)
         {
-            var db = mongoClient.GetDatabase("pokemon_Team_Builder");
-            _pokemonCollection = db.GetCollection<HalfPokemonEntity>("pokemonData");
+            var db = mongoClient.GetDatabase("pokemonData");
+            _pokemonCollection = db.GetCollection<HalfPokemonEntity>("pokemon");
             _PokeapiService = pokeapiService;
         }
 

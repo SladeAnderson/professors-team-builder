@@ -14,3 +14,12 @@ namespace professorsTeamBuilder.models
         public List<LinkDTO> Results { get; set; } = [];
     }
 }
+
+
+// export interface pokemonSummery {
+//     count: number;
+//     next: string|null;
+//     previous: string|null;
+//     results: Link[];
+// }
+

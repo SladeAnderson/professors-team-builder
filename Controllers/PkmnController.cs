@@ -23,6 +23,7 @@ namespace professorsTeamBuilder.Controllers
         public async Task<IActionResult> GetAllPkmn([FromBody] PkmnSummary summary)
         {
             if (summary == null) {
+                Console.WriteLine("You need A summary!");
                 return BadRequest("You need a summary");
             }
             Console.WriteLine("------------------------------------");

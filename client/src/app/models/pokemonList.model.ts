@@ -1,7 +1,7 @@
 
 export interface Link {
-    name: string,
-    url: string
+    name: string|null,
+    url: string|null
 }
 
 export interface halfPokemon {
