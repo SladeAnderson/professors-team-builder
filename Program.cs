@@ -46,15 +46,19 @@ class Program
 
         builder.Services.AddHttpClient();
 
+
         builder.Services.AddSingleton<IMongoClient>(sp => new MongoClient(mongodSettings));
         
         builder.Services.AddTransient<IPokeapiService,PokeapiService>();
         builder.Services.AddTransient<IPokemonService,PokemonService>();
+        builder.Services.AddTransient<IStartupFilter, StartupService>();
 
 
 
-
-
+        builder.Services.Configure<HttpClient>(options => 
+        {
+            options.Timeout = Timeout.InfiniteTimeSpan;
+        });
 
         builder.Services.Configure<IdentityOptions>(options => 
         {

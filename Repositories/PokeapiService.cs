@@ -2,52 +2,104 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+
+using professorsTeamBuilder.models;
 using professorsTeamBuilder.models.Entities;
 
 namespace professorsTeamBuilder.Repositories
 {
-    public class PokeapiService(HttpClient http) : IPokeapiService
-    {
-        public async Task<HalfPokemonEntity> GetPokemon(string name) 
+    public class PokeapiService : IPokeapiService
+    {  
+        private HttpClient http;
+        public PokeapiService(HttpClient http)
         {
-            var BaseAddress = new Uri("https://pokeapi.co/api/v2/pokemon/");
-            http.BaseAddress = BaseAddress;
-            var res = await http.GetAsync($"{BaseAddress}/{name}");
+            http.Timeout = TimeSpan.FromMinutes(50);
+            this.http = http;
+        }  
+        public async Task<HalfPokemonEntity> GetPokemon(string url) 
+        {
+            HalfPokemonEntity? pokemon;
+            HttpResponseMessage? res;
+
+            try {
+                res = await http.GetAsync(url);
+            } 
+            catch (TimeoutException err) { 
+                res = await http.GetAsync(url);
+                Console.WriteLine(err);
+                throw;
+            }
+            catch (System.Exception err) {
+                Console.WriteLine(err);
+                throw;
+            }
+
             res.EnsureSuccessStatusCode();
 
-            HalfPokemonEntity? pokemon = await res.Content.ReadFromJsonAsync<HalfPokemonEntity>();
+            try {
+                pokemon = await res.Content.ReadFromJsonAsync<HalfPokemonEntity>();
+            } 
+            catch (TimeoutException err) {
+                pokemon = await res.Content.ReadFromJsonAsync<HalfPokemonEntity>();
+                Console.WriteLine(err);
+                throw;
+            }
+            catch (System.Exception err) {
+                Console.WriteLine(err);
+                throw;
+            }
 
+            res.Dispose();
             if (pokemon != null) {
                 Console.WriteLine($"Found Pkmn! {pokemon.Name}\n ID: {pokemon.Id} Status:{res.StatusCode}");
                 return pokemon;
             } 
             
+            res.Dispose();
             return new HalfPokemonEntity()
             {
                 Name = "",
             };
+        
         } 
 
-        public async Task<HalfPokemonEntity> GetPokemon(int id) 
+        public async Task<PkmnSummary> GetSumamry()
         {
-            var BaseAddress = new Uri("https://pokeapi.co/api/v2/pokemon/");
-            http.BaseAddress = BaseAddress;
-            var res = await http.GetAsync($"{BaseAddress}/{id}");
-            res.EnsureSuccessStatusCode();
-
-            HalfPokemonEntity? pokemon = await res.Content.ReadFromJsonAsync<HalfPokemonEntity>();
-
-            if (pokemon != null) {
-                Console.WriteLine($"Found Pkmn! {pokemon.Name}\n ID: {pokemon.Id} Status:{res.StatusCode}");
-                return pokemon;
-            } 
-            
-            return new HalfPokemonEntity()
+            PkmnSummary? summary = new();
+            HttpResponseMessage res = new();
+            try
             {
-                Name = "",
-            };
-        } 
+                res = await http.GetAsync("https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0");
+            }
+            catch (TimeoutException err)
+            {
+                Console.WriteLine(err);
+                throw;
+            }
+            catch (System.Exception err)
+            {
+                Console.WriteLine(err);
+                throw;
+            }
 
+            try
+            {
+                summary = await res.Content.ReadFromJsonAsync<PkmnSummary>();
+            }
+            catch (TimeoutException err)
+            {
+                Console.WriteLine(err);
+                throw;
+            }
+            catch (System.Exception err)
+            {
+                Console.WriteLine(err);
+                throw;
+            }
+
+            res.Dispose();
+            return summary ?? new();
+        }
         
         //  add the other info calles later
 
@@ -58,7 +110,7 @@ namespace professorsTeamBuilder.Repositories
 
     public interface IPokeapiService
     {
-        public  Task<HalfPokemonEntity> GetPokemon(string name);
-        public Task<HalfPokemonEntity> GetPokemon(int id);
+        public  Task<HalfPokemonEntity> GetPokemon(string url);
+        public Task<PkmnSummary> GetSumamry();
     }
 }

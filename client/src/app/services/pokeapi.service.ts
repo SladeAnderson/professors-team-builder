@@ -42,11 +42,10 @@ export class Pokeapi {
         if (summary.length > 0) {
             console.log("--------------------------");
             
-            console.log(summary)
+            console.log("sendiing summary:",summary)
             const localDB$ = from(localDB.halfPokemon.toArray());
             const getPoke = () => {
-                
-                return this.http.post<halfPokemon[]>(`https://192.168.1.212:5200/api/Pkmn/GetAllPkmn`,{summary});
+                return this.http.post<halfPokemon[]>(`https://192.168.1.212:5200/api/Pkmn/GetAllPkmn`,summary);
             };
             
 

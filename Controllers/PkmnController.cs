@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using professorsTeamBuilder.models;
+using professorsTeamBuilder.models.DTO;
 using professorsTeamBuilder.Repositories;
 
 namespace professorsTeamBuilder.Controllers
@@ -20,7 +21,7 @@ namespace professorsTeamBuilder.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> GetAllPkmn([FromBody] PkmnSummary summary)
+        public async Task<IActionResult> GetAllPkmn([FromBody] List<LinkDTO> summary)
         {
             if (summary == null) {
                 Console.WriteLine("You need A summary!");
@@ -34,7 +35,7 @@ namespace professorsTeamBuilder.Controllers
             return halfPkmns != null ? Ok(halfPkmns) : NotFound();
         }
 
-        [HttpPost("{name}")]
+        [HttpPost]
         public async Task<IActionResult> GetByName([FromBody] string name)
         {
             var HalfPkmn = await PkmnService.GetHalfPkmnByName(name);
@@ -45,19 +46,6 @@ namespace professorsTeamBuilder.Controllers
             }
             return NotFound();
         }
-
-        [HttpPost("{id}")]
-        public async Task<IActionResult> GetById([FromBody] int id)
-        {
-            var HalfPkmn = await PkmnService.GetHalfPkmnById(id);
-
-            if (HalfPkmn != null)
-            {
-                return Ok(HalfPkmn);
-            }
-            return NotFound();
-        }
-
         
     }
 }
