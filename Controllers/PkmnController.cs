@@ -27,6 +27,7 @@ namespace professorsTeamBuilder.Controllers
                 Console.WriteLine("You need A summary!");
                 return BadRequest("You need a summary");
             }
+            
             Console.WriteLine("------------------------------------");
             var halfPkmns = await PkmnService.GetAllHalfPkmn(summary);
 
@@ -36,9 +37,9 @@ namespace professorsTeamBuilder.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> GetByName([FromBody] string name)
+        public IActionResult GetByName([FromBody] string name)
         {
-            var HalfPkmn = await PkmnService.GetHalfPkmnByName(name);
+            var HalfPkmn = PkmnService.GetHalfPkmnByName(name);
 
             if (HalfPkmn != null)
             {

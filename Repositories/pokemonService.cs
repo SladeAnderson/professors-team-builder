@@ -43,40 +43,22 @@ namespace professorsTeamBuilder.Repositories
             return pokemonList;
         }
 
-        
-        public async Task<HalfPokemonDTO> GetHalfPkmnByName(string name)
+        public HalfPokemonDTO? GetHalfPkmnByName(string name)
         {
             HalfPokemonDTO pokemon = _pokemonCollection.Find(x=> x.Name == name).First().MapHalfPkmn();
-            if (pokemon == null) {
-                HalfPokemonEntity pkmn = await _PokeapiService.GetPokemon(name);
-                
-                if (pkmn != null) {
-                    Console.WriteLine($"Found Pkmn!\n ID:{pkmn.Id} name: {pkmn.Name}");
-                    _pokemonCollection.InsertOne(pkmn);
-                    return pkmn.MapHalfPkmn();
-                }
-                Console.WriteLine("Could not find the pkmn!");
-            } else {
+            if (pokemon != null) {
                 Console.WriteLine("Found cashed Pkmn!\n ID:{pkmn.Id} name: {pkmn.Name}");
-                return pokemon;
+                return pokemon;   
             }
 
             Console.WriteLine("Could not find pkmn!");
-            return new HalfPokemonDTO(){
-                Name = ""
-            };
+            return null;
         }
-        
-        // im not sure if i should make this could i cant just filter and paginate it on the front end.
-        // public List<HalfPokemonDTO> GetHalfPkmnByArr(List<string> nameArr)
-        // {
-
-        //     return (List<HalfPokemonDTO>)[];
-        // }    
+  
     }   
     public interface IPokemonService
     {
        public Task<List<HalfPokemonDTO>> GetAllHalfPkmn(List<LinkDTO> summary);
-       public Task<HalfPokemonDTO> GetHalfPkmnByName(string name);
+       public HalfPokemonDTO? GetHalfPkmnByName(string name);
     }
 }

@@ -73,7 +73,7 @@ namespace professorsTeamBuilder.Repositories
                                 Console.WriteLine(err);
                                 throw;
                             }
-                            catch (System.Exception err)
+                            catch (Exception err)
                             {
                                 Console.WriteLine(err);
                                 throw;
