@@ -53,7 +53,7 @@ namespace professorsTeamBuilder.Repositories
             if (pokemon != null) {
                 Console.WriteLine($"Found Pkmn! {pokemon.Name}\n ID: {pokemon.Id} Status:{res.StatusCode}");
                 return pokemon;
-            } 
+            }
             
             res.Dispose();
             return new HalfPokemonEntity()

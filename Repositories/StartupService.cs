@@ -25,61 +25,64 @@ namespace professorsTeamBuilder.Repositories
 
         public Action<IApplicationBuilder> Configure(Action<IApplicationBuilder> next)
         {
-            return async app =>
+            return app =>
             {
-                var pokemonTable = _pokemonCollection.AsQueryable().ToList();
-
-                if (pokemonTable.Count == 0) 
+                Task.Run(async () =>
                 {
-                    // Get the summary
-                    PkmnSummary sum = await this._PokeapiService.GetSumamry();
-                    ;
-
-                    int x = 0;
-
-                    // For each pkmn summary call the url and cash the pokemon
-                    sum.Results.ForEach(async summary => {
-                        
-                        if (x == 1304)
+                    var pokemonTable = _pokemonCollection.AsQueryable().ToList();
+        
+                    if (pokemonTable.Count == 0) 
+                    {
+                        // Get the summary
+                        PkmnSummary sum = await this._PokeapiService.GetSumamry();
+        
+                        int x = 0;
+        
+                        // For each pkmn summary call the url and cash the pokemon
+        
+                        foreach(var summary in sum.Results)
                         {
-                            Console.WriteLine("done");
-                            return;
+                            HalfPokemonEntity pkmn = new(){Name=""};
+        
+                            try {
+                                pkmn = await _PokeapiService.GetPokemon(summary.Url);
+                                x++;
+                            }  
+                            catch (TimeoutException err)
+                            {
+                                Console.WriteLine(err);
+                                throw;
+                            }
+                            catch (System.Exception err)
+                            {
+                                Console.WriteLine(err);
+                                throw;
+                            }
+        
+                            try {
+                                await _pokemonCollection.InsertOneAsync(pkmn);
+        
+                                if (x == sum.Results.Count)
+                                {
+                                    Console.WriteLine("done");
+                                    break;
+                                }
+                            }
+                            catch (TimeoutException err)
+                            {
+                                Console.WriteLine(err);
+                                throw;
+                            }
+                            catch (System.Exception err)
+                            {
+                                Console.WriteLine(err);
+                                throw;
+                            }
                         }
-                        HalfPokemonEntity pkmn = new(){Name=""};
-
-                        try {
-                            pkmn = await _PokeapiService.GetPokemon(summary.Url);
-                            x++;
-                        }  
-                        catch (TimeoutException err)
-                        {
-                            Console.WriteLine(err);
-                            throw;
-                        }
-                        catch (System.Exception err)
-                        {
-                            Console.WriteLine(err);
-                            throw;
-                        }
-
-                        try {
-                            await _pokemonCollection.InsertOneAsync(pkmn);
-                        }
-                        catch (TimeoutException err)
-                        {
-                            Console.WriteLine(err);
-                            throw;
-                        }
-                        catch (System.Exception err)
-                        {
-                            Console.WriteLine(err);
-                            throw;
-                        }
-                        
-                    });
-                    
-                }
-                next(app);
+                    }
+        
+                    next(app);
+                }).Wait();
             };
         }
 

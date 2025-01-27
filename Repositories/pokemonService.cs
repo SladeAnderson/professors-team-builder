@@ -25,10 +25,25 @@ namespace professorsTeamBuilder.Repositories
         {
             Console.WriteLine("started");
 
-            var db = await _pokemonCollection.AsQueryable().ToListAsync();
-  
-            return [.. db.Select(x=> x.MapHalfPkmn())];
+            var pokemonList = new List<HalfPokemonDTO>();
+            var batchSize = 100;
+            var totalPokemon = await _pokemonCollection.CountDocumentsAsync(FilterDefinition<HalfPokemonEntity>.Empty);
+            var totalBatches = (int)Math.Ceiling((double)totalPokemon / batchSize);
+
+            for (int i = 0; i < totalBatches; i++)
+            {
+            var batch = await _pokemonCollection.Find(FilterDefinition<HalfPokemonEntity>.Empty)
+                                 .Skip(i * batchSize)
+                                 .Limit(batchSize)
+                                 .ToListAsync();
+
+            pokemonList.AddRange(batch.Select(x => x.MapHalfPkmn()));
+            }
+
+            return pokemonList;
         }
+
+        
         public async Task<HalfPokemonDTO> GetHalfPkmnByName(string name)
         {
             HalfPokemonDTO pokemon = _pokemonCollection.Find(x=> x.Name == name).First().MapHalfPkmn();
