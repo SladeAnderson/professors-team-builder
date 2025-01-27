@@ -42,6 +42,7 @@ namespace professorsTeamBuilder.Repositories
                         
                         if (x == 1304)
                         {
+                            Console.WriteLine("done");
                             return;
                         }
                         HalfPokemonEntity pkmn = new(){Name=""};
