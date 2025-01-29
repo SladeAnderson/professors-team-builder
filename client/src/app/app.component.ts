@@ -18,21 +18,21 @@ import { MainComponent } from "./components/main/main.component";
   styleUrl: './app.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AppComponent implements OnDestroy {
-  constructor() {
+export class AppComponent implements OnDestroy,AfterViewInit {
+  constructor() {}
+
+  ngAfterViewInit(): void {
     this.openDialog();
   }
-  
-  private dialog = inject(MatDialog);
-
-  public halfPokemonList = signal<halfPokemon[]>([]);
-  public subs = new Subscription;
-
- 
 
   ngOnDestroy(): void {
     this.subs.unsubscribe();
   }
+
+  private dialog = inject(MatDialog);
+
+  public halfPokemonList = signal<halfPokemon[]>([]);
+  public subs = new Subscription;
 
   openDialog():void {
     const dialogRef = this.dialog.open(ModalComponent,{
