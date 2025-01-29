@@ -12,19 +12,15 @@ namespace professorsTeamBuilder.Repositories
     public class PokemonService : IPokemonService
     {
         private readonly IMongoCollection<HalfPokemonEntity> _pokemonCollection;
-        private readonly IPokeapiService _PokeapiService;
 
         public PokemonService(IMongoClient mongoClient, IPokeapiService pokeapiService)
         {
             var db = mongoClient.GetDatabase("pokemonData");
             this._pokemonCollection = db.GetCollection<HalfPokemonEntity>("pokemon");
-            this._PokeapiService = pokeapiService;
         }
 
-        public async Task<List<HalfPokemonDTO>> GetAllHalfPkmn(List<LinkDTO> summary)
+        public async Task<List<HalfPokemonDTO>> GetAllHalfPkmn()
         {
-            Console.WriteLine("started");
-
             var pokemonList = new List<HalfPokemonDTO>();
             var batchSize = 100;
             var totalPokemon = await _pokemonCollection.CountDocumentsAsync(FilterDefinition<HalfPokemonEntity>.Empty);
@@ -51,14 +47,29 @@ namespace professorsTeamBuilder.Repositories
                 return pokemon;   
             }
 
-            Console.WriteLine("Could not find pkmn!");
+            Console.WriteLine("Could not find cashed pkmn!");
             return null;
         }
   
+        public HalfPokemonDTO? GetHalfPkmnById(int id)
+        {
+            HalfPokemonDTO pkmn = _pokemonCollection.Find(x=>x.Id == id).First().MapHalfPkmn();
+
+            if (pkmn != null)
+            {
+                Console.WriteLine($"Found cashed Pkmn!\n ID:{pkmn.Id} name: {pkmn.Name}");
+                return pkmn;
+            }
+
+            Console.WriteLine("Could not find cashed pkmn");
+            return null;
+        }
+
     }   
     public interface IPokemonService
     {
-       public Task<List<HalfPokemonDTO>> GetAllHalfPkmn(List<LinkDTO> summary);
+       public Task<List<HalfPokemonDTO>> GetAllHalfPkmn();
        public HalfPokemonDTO? GetHalfPkmnByName(string name);
+       public HalfPokemonDTO? GetHalfPkmnById(int id);
     }
 }

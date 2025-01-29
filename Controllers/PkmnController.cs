@@ -21,31 +21,62 @@ namespace professorsTeamBuilder.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> GetAllPkmn([FromBody] List<LinkDTO> summary)
+        public async Task<IActionResult> GetAllPkmn()
         {
-            if (summary == null) {
-                Console.WriteLine("You need A summary!");
-                return BadRequest("You need a summary");
-            }
-            
+            var pkmns = new List<HalfPokemonDTO>();
             Console.WriteLine("------------------------------------");
-            var halfPkmns = await PkmnService.GetAllHalfPkmn(summary);
+            try
+            {
+                pkmns = await PkmnService.GetAllHalfPkmn();
+            }
+            catch (TimeoutException err) {
+                Console.WriteLine($"Could not fetch, error: {err}");
+                throw;
+            }
 
-            Console.WriteLine("fetching...");
-
-            return halfPkmns != null ? Ok(halfPkmns) : NotFound();
+            return pkmns != null ? Ok(pkmns) : NotFound();
         }
 
         [HttpPost]
         public IActionResult GetByName([FromBody] string name)
         {
-            var HalfPkmn = PkmnService.GetHalfPkmnByName(name);
+            HalfPokemonDTO? pkmn = new(){Name = ""};
 
-            if (HalfPkmn != null)
+            try
             {
-                return Ok(HalfPkmn);
+                pkmn = PkmnService.GetHalfPkmnByName(name);
             }
-            return NotFound();
+            catch (TimeoutException err) {
+                Console.WriteLine($"Could not fetch, error: {err}");
+                throw;
+            }
+            catch (MissingFieldException err) {
+                Console.WriteLine($"Please enter a name, error: {err} ");
+                throw;
+            }
+
+            return pkmn != null ? Ok(pkmn) : NotFound();
+        }
+
+        [HttpPost]
+        public IActionResult GetById([FromBody] int id)
+        {
+            HalfPokemonDTO? pkmn = new(){Name = ""};
+
+            try
+            {
+                pkmn = PkmnService.GetHalfPkmnById(id);
+            }
+            catch (TimeoutException err) {
+                Console.WriteLine($"Could not fetch, error: {err}");
+                throw;
+            }
+            catch (MissingFieldException err) {
+                Console.WriteLine($"Please enter a id, error: {err} ");
+                throw;
+            }
+
+            return pkmn != null ? Ok(pkmn) : NotFound();
         }
         
     }
