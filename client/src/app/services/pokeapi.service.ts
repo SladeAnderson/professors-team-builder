@@ -14,52 +14,13 @@ export class Pokeapi {
 
     constructor(private http: HttpClient) {}
 
-    getPokemonSummary$():Observable<pokemonSummery> {
-        const localDB$ = from(localDB.pokemonSummery.toArray());
 
-        return localDB$.pipe(
-            concatMap((value)=>{
-                if (value.length === 0) {
-                    
-                    return this.http.get<pokemonSummery[][0]>(`https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0`).pipe(
-                    
-                        concatMap(value=>{
-                            
-                        localDB.pokemonSummery.add(value).catch(err => {
-                            console.error("Failed to store summmary",err);
-                        });
-                        return of(value);
-                    }));
-                }
-                
-                return of(value[0])
+    getAllHalfPokemon$():Observable<halfPokemon[]> {
+        return this.http.post<halfPokemon[]>(`https://192.168.1.212:5200/api/Pkmn/GetAllPkmn`,{}).pipe(
+            tap(value =>{
+                console.log("Cashed Half Pkmn: ",value);
             })
         );
-    }
-
-    getAllHalfPokemon$(summary:Link[]):Observable<halfPokemon[]> {
-
-        if (summary.length > 0) {
-            console.log("--------------------------");
-            
-            console.log("sendiing summary:",summary)
-            const localDB$ = from(localDB.halfPokemon.toArray());
-            const getPoke = () => {
-                return this.http.post<halfPokemon[]>(`https://192.168.1.212:5200/api/Pkmn/GetAllPkmn`,summary);
-            };
-            
-
-            const x = getPoke().pipe(
-                tap(value =>{
-                    console.log("heyey",value)
-
-                })
-            );
-
-            return x;
-        }
-
-        return new Observable<halfPokemon[]>;
     }
 
    

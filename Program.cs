@@ -55,10 +55,10 @@ class Program
 
 
 
-        builder.Services.Configure<HttpClient>(options => 
-        {
-            options.Timeout = Timeout.InfiniteTimeSpan;
-        });
+        // builder.Services.Configure<HttpClient>(options => 
+        // {
+        //     options.Timeout = Timeout.InfiniteTimeSpan;
+        // });
 
         builder.Services.Configure<IdentityOptions>(options => 
         {

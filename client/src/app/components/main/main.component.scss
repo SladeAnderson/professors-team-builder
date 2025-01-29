@@ -1,7 +1,18 @@
 $background-color: #fff;
 
 .main-screen {
-    width: 80%;
-    height: 80%;
+    width: 100%;
+    height: 80vh;
     background: $background-color;
+    border-radius: 10px;
+    box-shadow: inset black 0px 0px 10px;
+}
+
+@media screen and (max-width: 1920px) {
+    .main-screen {
+        width: 95%;
+        height: 85vh;
+        margin-left: 2.5%;
+    }
+    
 }

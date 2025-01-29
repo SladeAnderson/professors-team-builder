@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, OnDestroy, OnInit, Signal, signal } from '@angular/core';
+import { AfterContentInit, AfterViewInit, ChangeDetectionStrategy, Component, inject, OnDestroy, OnInit, Signal, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Header } from './components/header/header.component';
 import { MatDialogModule,MatDialog } from '@angular/material/dialog';
@@ -9,35 +9,26 @@ import { concatMap, map, Observable, Subscription, tap } from 'rxjs';
 import { halfPokemon, Link } from './models/pokemonList.model';
 import { HttpClient, provideHttpClient } from '@angular/common/http';
 import { toSignal } from '@angular/core/rxjs-interop';
+import { MainComponent } from "./components/main/main.component";
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Header, MatDialogModule],
+  imports: [RouterOutlet, Header, MatDialogModule, MainComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AppComponent implements OnInit,OnDestroy {
-  constructor(private pokeApi:Pokeapi) {
-    this.getHalfPokemon$ = this.pokeApi.getPokemonSummary$().pipe(
-      concatMap(value => {
-        return this.pokeApi.getAllHalfPokemon$(value.results);
-      }),
-      tap(value=>{
-        this.halfPokemonList.set(value);
-      })
-    );
+export class AppComponent implements OnDestroy {
+  constructor() {
+    this.openDialog();
   }
   
   private dialog = inject(MatDialog);
 
-  public getHalfPokemon$: Observable<halfPokemon[]>;
   public halfPokemonList = signal<halfPokemon[]>([]);
   public subs = new Subscription;
 
- ngOnInit() {
-    this.openDialog();
-  }
+ 
 
   ngOnDestroy(): void {
     this.subs.unsubscribe();
@@ -50,9 +41,8 @@ export class AppComponent implements OnInit,OnDestroy {
     })
 
     dialogRef.afterOpened().pipe(
-      concatMap(value=>this.getHalfPokemon$)
-    ).subscribe((value)=>{
-      console.log('localCheck',this.halfPokemonList());
+      
+    ).subscribe(()=>{
       
       dialogRef.close();
     })
