@@ -65,11 +65,15 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "professorsTeamBuilder:build:production"
+              "buildTarget": "professorsTeamBuilder:build:production",
+              "verbose": true,
+              "port": 4000
             },
             "development": {
               "buildTarget": "professorsTeamBuilder:build:development",
-              "port": 4200
+              "host": "192.168.1.212",
+              "verbose": true,
+              "port": 4000
             }
           },
           "defaultConfiguration": "development"
@@ -97,7 +101,15 @@
           }
         },
         "options": {
-          "defaultConfiguration": "development"
+          "defaultConfiguration": "development",
+          "configurations": {
+            "development": {
+              "allowedHosts": [
+                "localhost",
+                "http://192.168.1.212:4000"
+              ]
+            }
+          }
         }
         
       

@@ -150,7 +150,7 @@ class Program
             
             if (app.Environment.IsDevelopment()) {
                 // spa.UseAngularCliServer("start");
-                spa.UseProxyToSpaDevelopmentServer("http://localhost:4200");
+                spa.UseProxyToSpaDevelopmentServer("http://192.168.212:4000");
             } else {
 
                 spa.Options.DefaultPage = "/browser/index.html";
