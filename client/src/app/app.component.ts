@@ -1,14 +1,13 @@
-import { ChangeDetectionStrategy, Component, inject, OnDestroy, OnInit, Signal, signal } from '@angular/core';
+import { AfterContentInit, AfterViewInit, ChangeDetectionStrategy, Component, inject, OnDestroy, OnInit, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Header } from './components/header/header.component';
 import { MatDialogModule,MatDialog } from '@angular/material/dialog';
 import { ModalComponent } from './Shared/Components/Modals/LoadingModal/LoadingModal.component';
 import { Pokeapi } from './services/pokeapi.service';
-import { pokemonSummery } from './models/pokemonSummery.model';
 import { concatMap, map, Observable, Subscription, tap } from 'rxjs';
 import { halfPokemon, Link } from './models/pokemonList.model';
-import { HttpClient, provideHttpClient } from '@angular/common/http';
-import { toSignal } from '@angular/core/rxjs-interop';
+import { MainComponent } from "./components/main/main.component";
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-root',
@@ -17,32 +16,25 @@ import { toSignal } from '@angular/core/rxjs-interop';
   styleUrl: './app.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AppComponent implements OnInit,OnDestroy {
-  constructor(private pokeApi:Pokeapi) {
-    this.getHalfPokemon$ = this.pokeApi.getPokemonSummary$().pipe(
-      concatMap(value => {
-        return this.pokeApi.getAllHalfPokemon$(value.results);
-      }),
-      tap(value=>{
-        this.halfPokemonList.set(value);
-      })
-    );
+export class AppComponent implements OnInit{
+  constructor(http: HttpClient) {
+    this.pokeapi = new Pokeapi(http);
   }
+
+
+  private pokeapi: Pokeapi;
   
   private dialog = inject(MatDialog);
 
-  public getHalfPokemon$: Observable<halfPokemon[]>;
   public halfPokemonList = signal<halfPokemon[]>([]);
   public subs = new Subscription;
-
- ngOnInit() {
-    this.openDialog();
+  
+  
+  
+  ngOnInit() {
+      this.openDialog();
   }
-
-  ngOnDestroy(): void {
-    this.subs.unsubscribe();
-  }
-
+  
   openDialog():void {
     const dialogRef = this.dialog.open(ModalComponent,{
       width: "50%",
@@ -50,14 +42,19 @@ export class AppComponent implements OnInit,OnDestroy {
     })
 
     dialogRef.afterOpened().pipe(
-      concatMap(value=>this.getHalfPokemon$)
+      concatMap(()=>{
+        return this.pokeapi.getPokemonSummary$()
+      }),
+      concatMap((summary)=>{
+        return this.pokeapi.getAllHalfPokemon$(summary.results);
+      }),
     ).subscribe((value)=>{
-      console.log('localCheck',this.halfPokemonList());
       
+      this.halfPokemonList.set(value);
+
       dialogRef.close();
     })
 
     
   }
-
 }
