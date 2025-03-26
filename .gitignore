@@ -54,8 +54,8 @@ obj/debug
 bin/
 .editorconfig
 /wwwroot
-/192.168.1.212-key.pem
-/192.168.1.212.pem
+/192.168.1.212+1-key.pem
+/192.168.1.212+1.pem
 /nethost.pfx
 192.168.1.212+1-key.pem
 192.168.1.212+1.pem

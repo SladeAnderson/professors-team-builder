@@ -7,8 +7,8 @@ namespace professorsTeamBuilder.models.DTO
 {
     public class LinkDTO
     {
-        public string? Name {get; set;}
-        public string? Url {get; set;} 
+        public required string Name {get; set;}
+        public required string Url {get; set;} 
     }
     public class HalfPokemonDTO
     {

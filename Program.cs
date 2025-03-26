@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.SpaServices;
 using Microsoft.EntityFrameworkCore;
 using MongoDB.Driver;
 using MongoDB.Bson;
+using MongoDB.Driver.Core;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
@@ -25,9 +26,9 @@ class Program
         //--------------- database stuff ---------------\\
 
         // get connSring        
-        var location = "localDefualt";
+        string location = "localDefualt";
 
-        var connString = builder.Configuration.GetConnectionString(location);
+        string? connString = builder.Configuration.GetConnectionString(location);
         
         if (connString == null) {
             Console.WriteLine("you must set your 'MONGODB_URI' environment variable. To learn how to set it.\n see https://www.mongodb.com/docs/drivers/csharp/current/quick-start/#set-your-connection-string");
@@ -45,18 +46,20 @@ class Program
 
         builder.Services.AddHttpClient();
 
+
         builder.Services.AddSingleton<IMongoClient>(sp => new MongoClient(mongodSettings));
         
         builder.Services.AddTransient<IPokeapiService,PokeapiService>();
         builder.Services.AddTransient<IPokemonService,PokemonService>();
+        builder.Services.AddTransient<IStartupFilter, StartupService>();
 
 
 
+        // builder.Services.Configure<HttpClient>(options => 
+        // {
+        //     options.Timeout = Timeout.InfiniteTimeSpan;
+        // });
 
-
-
-
-       
         builder.Services.Configure<IdentityOptions>(options => 
         {
             options.Password.RequireDigit = false;
@@ -75,18 +78,12 @@ class Program
                 ValidateIssuerSigningKey = false,
                 ValidIssuer = builder.Configuration["Jwt:Issuer"],
                 ValidAudience = builder.Configuration["Jwt:Audience"],
-                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:key"] ?? ""))
         });
 
         builder.Services.AddHttpContextAccessor();
 
-        builder.WebHost.ConfigureServices(services => 
-        {
-            services.AddSpaStaticFiles(configuration => 
-            {
-                configuration.RootPath = "wwwroot";
-            });
-        });
+        builder.Services.AddSpaStaticFiles(configuration => configuration.RootPath = "wwwroot");
 
         builder.WebHost.ConfigureKestrel((context,options) => 
         {
@@ -94,14 +91,8 @@ class Program
             // mkcert <spaced apart addresses>
             // openssl pkcs12 -export -out <mydomains>.pfx -inkey <example.com+5-key>.pem -in <example.com+5>.pem 
     
-            options.ListenLocalhost(5200, listenOptions =>
-            {
-                listenOptions.UseHttps("nethost.pfx", "password");
-            });
-            options.Listen(System.Net.IPAddress.Parse("192.168.1.212"), 5200, listenOptions =>
-            {
-                listenOptions.UseHttps("nethost.pfx", "password");
-            });
+            options.ListenLocalhost(5200, listenOptions => listenOptions.UseHttps("nethost.pfx", "password"));
+            options.Listen(System.Net.IPAddress.Parse("192.168.1.212"), 5200, listenOptions => listenOptions.UseHttps("nethost.pfx", "password"));
         });
 
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -117,8 +108,6 @@ class Program
             c.OperationFilter<SecurityRequirementsOperationFilter>();
             
         });
-
-        builder.WebHost.UseUrls("https://localhost:5200");
 
         var app = builder.Build();
 
@@ -146,7 +135,7 @@ class Program
         app.UseAuthorization();
 
 
-
+        // app.MapDefaultControllerRoute();
         app.UseEndpoints(endpoints => 
         {
             endpoints.MapDefaultControllerRoute();
@@ -160,6 +149,7 @@ class Program
 
             
             if (app.Environment.IsDevelopment()) {
+                // spa.UseAngularCliServer("start");
                 spa.UseProxyToSpaDevelopmentServer("http://localhost:4200");
             } else {
 

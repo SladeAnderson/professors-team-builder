@@ -4,57 +4,80 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using professorsTeamBuilder.models;
+using professorsTeamBuilder.models.DTO;
 using professorsTeamBuilder.Repositories;
 
 namespace professorsTeamBuilder.Controllers
 {
     [ApiController]
     [Route("api/[controller]/[action]")]
-    public class PkmnController : ControllerBase
+    public class Pkmn : ControllerBase
     {
         private readonly IPokemonService PkmnService;
         
-        public PkmnController(IPokemonService pokemonService) 
+        public Pkmn(IPokemonService pokemonService) 
         {
             this.PkmnService = pokemonService;
         }
 
-        [HttpPost("{summary}")]
-        public async Task<IActionResult> GetAllPkmn(PkmnSummary summary)
+        [HttpPost]
+        public async Task<IActionResult> GetAllPkmn()
         {
-            var HalfPkmns = await PkmnService.GetAllHalfPkmn(summary);
-
-            if (HalfPkmns != null)
+            var pkmns = new List<HalfPokemonDTO>();
+            Console.WriteLine("------------------------------------");
+            try
             {
-                return Ok(HalfPkmns);
+                pkmns = await PkmnService.GetAllHalfPkmn();
             }
-            return NotFound();
+            catch (TimeoutException err) {
+                Console.WriteLine($"Could not fetch, error: {err}");
+                throw;
+            }
+
+            return pkmns != null ? Ok(pkmns) : NotFound();
         }
 
-        [HttpPost("{name}")]
-        public async Task<IActionResult> GetByName(string name)
+        [HttpPost]
+        public IActionResult GetByName([FromBody] string name)
         {
-            var HalfPkmn = await PkmnService.GetHalfPkmnByName(name);
+            HalfPokemonDTO? pkmn = new(){Name = ""};
 
-            if (HalfPkmn != null)
+            try
             {
-                return Ok(HalfPkmn);
+                pkmn = PkmnService.GetHalfPkmnByName(name);
             }
-            return NotFound();
+            catch (TimeoutException err) {
+                Console.WriteLine($"Could not fetch, error: {err}");
+                throw;
+            }
+            catch (MissingFieldException err) {
+                Console.WriteLine($"Please enter a name, error: {err} ");
+                throw;
+            }
+
+            return pkmn != null ? Ok(pkmn) : NotFound();
         }
 
-        [HttpPost("{id}")]
-        public async Task<IActionResult> GetById(int id)
+        [HttpPost]
+        public IActionResult GetById([FromBody] int id)
         {
-            var HalfPkmn = await PkmnService.GetHalfPkmnById(id);
+            HalfPokemonDTO? pkmn = new(){Name = ""};
 
-            if (HalfPkmn != null)
+            try
             {
-                return Ok(HalfPkmn);
+                pkmn = PkmnService.GetHalfPkmnById(id);
             }
-            return NotFound();
-        }
+            catch (TimeoutException err) {
+                Console.WriteLine($"Could not fetch, error: {err}");
+                throw;
+            }
+            catch (MissingFieldException err) {
+                Console.WriteLine($"Please enter a id, error: {err} ");
+                throw;
+            }
 
+            return pkmn != null ? Ok(pkmn) : NotFound();
+        }
         
     }
 }
