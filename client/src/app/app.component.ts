@@ -45,7 +45,7 @@ export class AppComponent implements OnDestroy,AfterViewInit {
     dialogRef.afterOpened().pipe(
       concatMap(()=>{
         // return this.pokeapi
-        return [];
+        return this.pokeapi.getAllHalfPokemon$();
       })
       
     ).subscribe((value)=>{

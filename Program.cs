@@ -53,12 +53,7 @@ class Program
         builder.Services.AddTransient<IPokemonService,PokemonService>();
         builder.Services.AddTransient<IStartupFilter, StartupService>();
 
-
-
-        // builder.Services.Configure<HttpClient>(options => 
-        // {
-        //     options.Timeout = Timeout.InfiniteTimeSpan;
-        // });
+        
 
         builder.Services.Configure<IdentityOptions>(options => 
         {
@@ -150,7 +145,7 @@ class Program
             
             if (app.Environment.IsDevelopment()) {
                 // spa.UseAngularCliServer("start");
-                spa.UseProxyToSpaDevelopmentServer("http://localhost:4200");
+                spa.UseProxyToSpaDevelopmentServer("http://192.168.1.212:4200");
             } else {
 
                 spa.Options.DefaultPage = "/browser/index.html";
