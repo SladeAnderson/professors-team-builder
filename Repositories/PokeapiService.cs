@@ -10,7 +10,7 @@ namespace professorsTeamBuilder.Repositories
 {
     public class PokeapiService : IPokeapiService
     {  
-        private HttpClient http;
+        private readonly HttpClient http;
         public PokeapiService(HttpClient http)
         {
             http.Timeout = TimeSpan.FromMinutes(50);

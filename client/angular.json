@@ -51,7 +51,8 @@
                   "maximumError": "8kB"
                 }
               ],
-              "outputHashing": "all"
+              "outputHashing": "all",
+              "serviceWorker": "ngsw-config.json"
             },
             "development": {
               "optimization": false,
@@ -65,7 +66,8 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "professorsTeamBuilder:build:production"
+              "buildTarget": "professorsTeamBuilder:build:production",
+              "port": 4200
             },
             "development": {
               "buildTarget": "professorsTeamBuilder:build:development",
@@ -97,7 +99,8 @@
           }
         },
         "options": {
-          "defaultConfiguration": "development"
+          "defaultConfiguration": "development",
+          "builder": "@angular/build:application"
         }
         
       

@@ -85,6 +85,7 @@ class Program
             // how to generate a https certificate run these two commands with your info.
             // mkcert <spaced apart addresses>
             // openssl pkcs12 -export -out <mydomains>.pfx -inkey <example.com+5-key>.pem -in <example.com+5>.pem 
+            // run mkcert -install to audomaically install the certificate
     
             options.ListenLocalhost(5200, listenOptions => listenOptions.UseHttps("nethost.pfx", "password"));
             options.Listen(System.Net.IPAddress.Parse("192.168.1.212"), 5200, listenOptions => listenOptions.UseHttps("nethost.pfx", "password"));
@@ -124,13 +125,14 @@ class Program
             FileProvider = new PhysicalFileProvider(path),
         });
 
-        app.UseRouting();
+        app.UseRouting(); // Ensure UseRouting is called before UseEndpoints
 
         app.UseAuthentication();
         app.UseAuthorization();
 
 
-        // app.MapDefaultControllerRoute();
+        // don't change this
+        #pragma warning disable ASP0014
         app.UseEndpoints(endpoints => 
         {
             endpoints.MapDefaultControllerRoute();
@@ -140,12 +142,8 @@ class Program
 
         app.UseSpa(spa => 
         {
-            spa.Options.SourcePath = "client";
-
-            
             if (app.Environment.IsDevelopment()) {
-                // spa.UseAngularCliServer("start");
-                spa.UseProxyToSpaDevelopmentServer("http://192.168.1.212:4200");
+                spa.UseProxyToSpaDevelopmentServer("http://localhost:4200");
             } else {
 
                 spa.Options.DefaultPage = "/browser/index.html";

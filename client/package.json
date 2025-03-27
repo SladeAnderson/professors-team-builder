@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --port 4200 --verbose",
+    "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
@@ -19,7 +19,9 @@
     "@angular/material": "^19.0.5",
     "@angular/platform-browser": "^19.0.0",
     "@angular/platform-browser-dynamic": "^19.0.0",
+    "@angular/pwa": "^19.2.5",
     "@angular/router": "^19.0.0",
+    "@angular/service-worker": "^19.0.0",
     "dexie": "^4.0.10",
     "dexie-observable": "^4.0.1-beta.13",
     "npm": "^11.0.0",

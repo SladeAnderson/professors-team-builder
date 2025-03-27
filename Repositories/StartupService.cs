@@ -42,6 +42,7 @@ namespace professorsTeamBuilder.Repositories
         
                         foreach(var summary in sum.Results)
                         {
+                            Console.WriteLine($"count: {sum.Count}");
                             HalfPokemonEntity pkmn = new(){Name=""};
         
                             try {
