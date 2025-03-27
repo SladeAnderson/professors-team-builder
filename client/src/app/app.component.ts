@@ -18,8 +18,9 @@ import { MainComponent } from "./components/main/main.component";
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent implements OnDestroy,AfterViewInit {
-  constructor(http:HttpClient) {
-    this.pokeapi = new Pokeapi(http);
+  constructor(http:HttpClient, Pokeapi: Pokeapi) {
+    this.pokeapi = Pokeapi;
+    
   }
 
   ngAfterViewInit(): void {
@@ -45,7 +46,7 @@ export class AppComponent implements OnDestroy,AfterViewInit {
     dialogRef.afterOpened().pipe(
       concatMap(()=>{
         // return this.pokeapi
-        return this.pokeapi.getAllHalfPokemon$();
+        return this.pokeapi.getDbPokeSummary$();
       })
       
     ).subscribe((value)=>{
