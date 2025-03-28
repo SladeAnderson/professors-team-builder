@@ -46,7 +46,11 @@ export class AppComponent implements OnDestroy,AfterViewInit {
     dialogRef.afterOpened().pipe(
       concatMap(()=>{
         // return this.pokeapi
-        return this.pokeapi.getDbPokeSummary$();
+        return this.pokeapi.getLocalPokeSummary$().pipe(
+          tap(value => {
+            console.log("Local Poke Summary: ", value);
+          })
+        );
       })
       
     ).subscribe((value)=>{
