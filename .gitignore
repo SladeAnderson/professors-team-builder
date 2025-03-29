@@ -42,4 +42,5 @@ typings
 
 .angular
 .vscode/
+/wwwroot
 

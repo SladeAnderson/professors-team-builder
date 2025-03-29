@@ -1,6 +1,6 @@
 {
   "name": "professors-team-builder",
-  "version": "0.0.0",
+  "version": "0.2.5",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -24,6 +24,7 @@
     "@angular/service-worker": "^19.0.0",
     "dexie": "^4.0.10",
     "dexie-observable": "^4.0.1-beta.13",
+    "firebase": "^11.5.0",
     "npm": "^11.0.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",

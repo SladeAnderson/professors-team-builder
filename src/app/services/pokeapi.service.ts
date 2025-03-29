@@ -11,7 +11,6 @@ import { halfPokemon, Link } from "../models/pokemonList.model";
 export class Pokeapi {
 
     constructor(private http: HttpClient) {}
-
     
     private getSummary$():Observable<pokemonSummery> {
         const localDB$ = from(localDB.pokemonSummery.toArray());
@@ -74,6 +73,8 @@ export class Pokeapi {
             })
         )
     }
+
+    // getting pokemon details from the localDB/pokeapi
 
    
 
