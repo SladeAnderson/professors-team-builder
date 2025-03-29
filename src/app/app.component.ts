@@ -5,10 +5,9 @@ import { MatDialogModule,MatDialog } from '@angular/material/dialog';
 import { ModalComponent } from './Shared/Components/Modals/LoadingModal/LoadingModal.component';
 import { Pokeapi } from './services/pokeapi.service';
 import { concatMap, map, Observable, Subscription, tap } from 'rxjs';
-import { halfPokemon, Link } from './models/pokemonList.model';
-import { HttpClient, provideHttpClient } from '@angular/common/http';
-import { toSignal } from '@angular/core/rxjs-interop';
+import { halfPokemon } from './models/pokemonList.model';
 import { MainComponent } from "./components/main/main.component";
+import { loadBar } from './Shared/Components/Modals/loadingBar/loadingBar.component';
 
 @Component({
   selector: 'app-root',
@@ -18,7 +17,7 @@ import { MainComponent } from "./components/main/main.component";
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent implements OnDestroy,AfterViewInit {
-  constructor(http:HttpClient, Pokeapi: Pokeapi) {
+  constructor(Pokeapi: Pokeapi) {
     this.pokeapi = Pokeapi;
     
   }
@@ -40,17 +39,23 @@ export class AppComponent implements OnDestroy,AfterViewInit {
   openDialog():void {
     const dialogRef = this.dialog.open(ModalComponent,{
       width: "50%",
-      height: "20%"
+      height: "30%"
     })
 
-    dialogRef.afterOpened().pipe(
-      concatMap(()=>{
-        // return this.pokeapi
+    dialogRef.afterClosed().pipe(
+      concatMap((value)=>{
+        const loadbarRef = this.dialog.open(loadBar, {
+          width: "50%",
+          height: "20%",
+        })
+        
         return this.pokeapi.getLocalPokeSummary$().pipe(
           tap(value => {
+            loadbarRef.close();
             console.log("Local Poke Summary: ", value);
           })
         );
+        
       })
       
     ).subscribe((value)=>{

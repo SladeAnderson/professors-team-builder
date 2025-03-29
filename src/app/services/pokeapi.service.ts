@@ -3,7 +3,8 @@ import localDB from "./professorsDatabase.service";
 import { pokemonSummery } from "../models/pokemonSummery.model";
 import { asyncScheduler, catchError, combineLatest, concatMap, from, map, mergeMap, Observable, of, scheduled, tap } from "rxjs";
 import { HttpClient, HttpContext } from "@angular/common/http";
-import { halfPokemon, Link } from "../models/pokemonList.model";
+import { halfPokemon } from "../models/pokemonList.model";
+import { Link } from "../models/core.model";
 
 @Injectable({
     providedIn:"root",
@@ -76,7 +77,54 @@ export class Pokeapi {
 
     // getting pokemon details from the localDB/pokeapi
 
-   
+    // Pkmn Berries
 
+    // Pkmn Contests
+
+    // Pkmn Encounters
+
+    // Pkmn Evolutions
+
+    // Pkmn Games
+
+    // Pkmn Items
+
+    // Pkmn Locations
+
+    // Pkmn Machines
+
+    // Pkmn Moves
+
+    // Pkmn Details
+    
+        // Abilities
+
+        // Characteristics
+
+        // Egg Groups
+
+        // Genders
+
+        // Growth Rates
+
+        // Natures
+
+        // Pokeathlon Stats
+
+        // Pkmn Location Areas
+
+        // Pkmn Colors
+
+        // Pkmn Forms
+
+        // Pkmn Habitats
+
+        // Pkmn Shapes
+
+        // Pkmn Species
+
+        // Pkmn Stats
+
+        // Pkmn Types
 
 }
