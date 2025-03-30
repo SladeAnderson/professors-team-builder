@@ -14,20 +14,23 @@ export class Pokeapi {
     constructor(private http: HttpClient) {}
     
     private getSummary$():Observable<pokemonSummery> {
-        const localDB$ = from(localDB.pokemonSummery.toArray());
+        const localDB$ = scheduled(localDB.pokemonSummery.toArray(), asyncScheduler);
         
         return localDB$.pipe(
             concatMap((value)=>{
+                
                 if (value.length === 0) {
                     
-                    return this.http.get<pokemonSummery[][0]>(`https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0`).pipe(
-                        mergeMap(value=>{   
-                            localDB.pokemonSummery.add(value).catch(err => {
-                                console.error("Failed to store summmary",err);
-                            });
+                    return this.http.get<pokemonSummery>(`https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0`).pipe(
+                        concatMap(value=>{   
+                            let req = scheduled(localDB.pokemonSummery.add(value),asyncScheduler);
                             
-                            return of(value);
-                        }));
+                            return combineLatest([of(value), req])
+                        }),
+                        concatMap((summary,_) =>{
+                            return of(summary[0]);
+                        })
+                    );
                     }
                     
                     return of(value[0])

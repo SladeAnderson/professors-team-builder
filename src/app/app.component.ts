@@ -17,10 +17,7 @@ import { loadBar } from './Shared/Components/Modals/loadingBar/loadingBar.compon
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent implements OnDestroy,AfterViewInit {
-  constructor(Pokeapi: Pokeapi) {
-    this.pokeapi = Pokeapi;
-    
-  }
+  constructor(private Pokeapi: Pokeapi) {}
 
   ngAfterViewInit(): void {
     this.openDialog();
@@ -33,8 +30,7 @@ export class AppComponent implements OnDestroy,AfterViewInit {
   private dialog = inject(MatDialog);
 
   public halfPokemonList = signal<halfPokemon[]>([]);
-  public subs = new Subscription; 
-  public pokeapi;
+  public subs = new Subscription;
 
   openDialog():void {
     const dialogRef = this.dialog.open(ModalComponent,{
@@ -49,7 +45,7 @@ export class AppComponent implements OnDestroy,AfterViewInit {
           height: "20%",
         })
         
-        return this.pokeapi.getLocalPokeSummary$().pipe(
+        return this.Pokeapi.getLocalPokeSummary$().pipe(
           tap(value => {
             loadbarRef.close();
             console.log("Local Poke Summary: ", value);
@@ -61,8 +57,6 @@ export class AppComponent implements OnDestroy,AfterViewInit {
     ).subscribe((value)=>{
       
       this.halfPokemonList.set(value);
-
-      dialogRef.close();
     })
 
     
