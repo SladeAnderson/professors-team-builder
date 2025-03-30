@@ -7,7 +7,7 @@
 /bazel-out
 
 # Node
-client/node_modules
+node_modules
 npm-debug.log
 yarn-error.log
 
@@ -22,38 +22,25 @@ yarn-error.log
 
 # Visual Studio Code
 
-!client/.vscode/settings.json
-!client/.vscode/tasks.json
-!client/.vscode/launch.json
-!client/.vscode/extensions.json
-client/.history/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.history/*
 
 # Miscellaneous
-client/.angular/cache
-client/.sass-cache/
-client/connect.lock
-client/coverage
-client/libpeerconnection.log
-client/testem.log
-client/typings
+.angular/cache
+.sass-cache/
+connect.lock
+coverage
+libpeerconnection.log
+testem.log
+typings
 
-# System files
-.DS_Store
-Thumbs.db
 
 # Client Files
 
-client/.angular
-client/.vscode/
-
-# Server Files
-
-appsettings.json
-obj
-obj/debug
-bin/
-.editorconfig
+.angular
+.vscode/
 /wwwroot
-/192.168.1.212+1-key.pem
-/192.168.1.212+1.pem
-/nethost.pfx
+.firebase
