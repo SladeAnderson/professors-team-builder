@@ -190,7 +190,7 @@ Project Link: [https://github.com/SladeAnderson/professors-team-builder](https:/
 [issues-url]: https://github.com/SladeAnderson/professors-team-builder/issues
 
 <!-- License  -->
-[license-shield]: https://img.shields.io/github/license/SladeAnderson/professors-team-builder.svg?style=for-the-badge
+[license-shield]: https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge
 [license-url]: ./LICENSE.md
 
 <!-- Linkedin -->
