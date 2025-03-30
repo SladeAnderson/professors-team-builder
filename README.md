@@ -63,7 +63,6 @@ Professor's Team Tool is a frontend-focused Pokémon team builder website. It al
 ### Built With
 
 This project is built using the following technologies:
-These are reference-style links in Markdown. They use a combination of text, reference labels, and URLs to create links or images. Here's the rewritten content for `$SELECTION_PLACEHOLDER$`:
 
 * [![Angular][Angular.io]][Angular-url]
 * [![Material UI][mui-shield]][mui-url]
@@ -73,6 +72,9 @@ These are reference-style links in Markdown. They use a combination of text, ref
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
+
+### Hosted With
+* [![Firebase][firebase-shield]][firebase-url]
 
 
 <!-- GETTING STARTED -->
@@ -222,3 +224,7 @@ Project Link: [https://github.com/SladeAnderson/professors-team-builder](https:/
 
 <!-- Portfolio -->
 [portfolio-shield]: https://img.shields.io/badge/Portfolio-000000?style=for-the-badge&logo=About.me&logoColor=white
+
+<!-- Firebase -->
+[firebase-shield]: https://img.shields.io/badge/Firebase-FFCA28?style=for-the-badge&logo=firebase&logoColor=white
+[firebase-url]: https://firebase.google.com/
