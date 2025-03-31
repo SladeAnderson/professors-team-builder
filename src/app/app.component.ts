@@ -35,7 +35,8 @@ export class AppComponent implements OnDestroy,AfterViewInit {
   openDialog():void {
     const dialogRef = this.dialog.open(ModalComponent,{
       width: "50%",
-      height: "30%"
+      height: "30%",
+      disableClose: true,
     })
 
     dialogRef.afterClosed().pipe(
@@ -43,6 +44,7 @@ export class AppComponent implements OnDestroy,AfterViewInit {
         const loadbarRef = this.dialog.open(loadBar, {
           width: "50%",
           height: "20%",
+          disableClose: true,
         })
         
         return this.Pokeapi.getLocalPokeSummary$().pipe(
@@ -50,15 +52,13 @@ export class AppComponent implements OnDestroy,AfterViewInit {
             loadbarRef.close();
             console.log("Local Poke Summary: ", value);
           })
-        );
-        
+        );   
       })
-      
     ).subscribe((value)=>{
-      
       this.halfPokemonList.set(value);
     })
 
     
   }
+  
 }

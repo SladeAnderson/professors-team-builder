@@ -1,4 +1,4 @@
-import { Link, NamedLink, Name } from "./core.model";
+import { Link, NamedLink, Name } from "../core.model";
 
 export interface pkmnStats {
     id: number;

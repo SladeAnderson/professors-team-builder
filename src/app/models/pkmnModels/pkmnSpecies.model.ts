@@ -1,4 +1,4 @@
-import { Description, FlavorText, Link, Name, NamedLink } from './core.model';
+import { Description, FlavorText, Link, Name, NamedLink } from '../core.model';
 
 /**
  * Represents a Pokémon species with detailed information.

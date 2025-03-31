@@ -1,4 +1,4 @@
-import { Effect, Language, Name, NamedLink, VerboseEffect } from "./core.model";
+import { Effect, Language, Name, NamedLink, VerboseEffect } from "../core.model";
 
 /**
  * Represents an ability in the application.
@@ -20,15 +20,15 @@ export interface Ability {
     generation: NamedLink; 
     names: Name[]; 
     effect_entries: VerboseEffect[];
-    effect_changes: AbilityEffectChange[];
-    flavor_text_entries: AbilityFlavorText[]; 
+    effect_changes: abilityEffectChange[];
+    flavor_text_entries: abilityFlavorText[]; 
     pokemon: AbilityPkmn[]; 
 }
 
 /**
  * Represents a change in the effect of an ability across different version groups.
  */
-export interface AbilityEffectChange {
+export interface abilityEffectChange {
     effect_entries: Effect[];
     version_group: NamedLink;
 }
@@ -36,7 +36,7 @@ export interface AbilityEffectChange {
 /**
  * Represents the flavor text of an ability, including its language and version group.
  */
-export interface AbilityFlavorText {
+export interface abilityFlavorText {
     flavor_text: string;
     language: Language;
     version_group: NamedLink; 

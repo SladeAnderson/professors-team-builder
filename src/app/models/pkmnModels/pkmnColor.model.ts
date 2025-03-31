@@ -1,4 +1,4 @@
-import { Name, NamedLink } from "./core.model";
+import { Name, NamedLink } from "../core.model";
 
 /**
  * Represents the color information of a Pokémon.

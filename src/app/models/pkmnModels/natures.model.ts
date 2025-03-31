@@ -1,4 +1,4 @@
-import { Name, NamedLink } from "./core.model";
+import { Name, NamedLink } from "../core.model";
 
 /**
  * Represents a Pokémon nature, which affects stat growth and preferences.

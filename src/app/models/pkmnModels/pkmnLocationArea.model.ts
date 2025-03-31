@@ -1,4 +1,4 @@
-import { NamedLink, VersionEncounterDetail } from "./core.model";
+import { NamedLink, VersionEncounterDetail } from "../core.model";
 
 /**
  * Represents a Pokémon location area, including details about the location

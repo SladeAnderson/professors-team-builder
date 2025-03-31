@@ -1,4 +1,4 @@
-import { Description, NamedLink } from "./core.model";
+import { Description, NamedLink } from "../core.model";
 
 /**
  * Represents the growth rate of a Pokémon species.

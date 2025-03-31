@@ -1,4 +1,4 @@
-import { Name, NamedLink } from "./core.model";
+import { Name, NamedLink } from "../core.model";
 
 /**
  * Represents an egg group in the application.

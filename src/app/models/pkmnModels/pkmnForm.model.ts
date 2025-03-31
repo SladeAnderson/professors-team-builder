@@ -1,5 +1,5 @@
-import { Name, NamedLink } from "./core.model";
-import { type } from "./pokemonList.model";
+import { Name, NamedLink } from "../core.model";
+import { type } from "../pokemonList.model";
 
 /**
  * Represents a Pokémon form with detailed information.

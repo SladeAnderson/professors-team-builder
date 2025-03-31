@@ -1,4 +1,4 @@
-import { Name, NamedLink } from "./core.model";
+import { Name, NamedLink } from "../core.model";
 
 /**
  * Represents a Pokémon habitat.

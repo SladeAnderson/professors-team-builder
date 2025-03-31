@@ -1,4 +1,4 @@
-import { NamedLink } from "./core.model";
+import { NamedLink } from "../core.model";
 
 /**
  * Represents a gender entity with associated details.

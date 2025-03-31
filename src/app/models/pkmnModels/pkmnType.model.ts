@@ -1,4 +1,4 @@
-import { NamedLink, Link, Name } from './core.model';
+import { NamedLink, Link, Name } from '../core.model';
 
 export interface TypeModel {
     id: number;
