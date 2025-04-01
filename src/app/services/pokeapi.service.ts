@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import localDB from "./professorsDatabase.service";
-import { pokemonSummery } from "../models/pokemonSummery.model";
+import { namedSummery } from "../models/summery.model";
 import { asyncScheduler, catchError, combineLatest, concatMap, from, map, mergeMap, Observable, of, scheduled, tap } from "rxjs";
 import { HttpClient, HttpContext } from "@angular/common/http";
 import { halfPokemon } from "../models/pokemonList.model";
@@ -13,7 +13,7 @@ export class Pokeapi {
 
     constructor(private http: HttpClient) {}
     
-    private getSummary$():Observable<pokemonSummery> {
+    private getSummary$():Observable<namedSummery> {
         const localDB$ = scheduled(localDB.pokemonSummery.toArray(), asyncScheduler);
         
         return localDB$.pipe(
@@ -21,7 +21,7 @@ export class Pokeapi {
                 
                 if (value.length === 0) {
                     
-                    return this.http.get<pokemonSummery>(`https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0`).pipe(
+                    return this.http.get<namedSummery>(`https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0`).pipe(
                         concatMap(value=>{   
                             let req = scheduled(localDB.pokemonSummery.add(value),asyncScheduler);
                             
