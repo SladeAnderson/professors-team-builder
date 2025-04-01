@@ -40,7 +40,7 @@ export class AppComponent implements OnDestroy,AfterViewInit {
   openDialog():void {
     const dialogRef = this.dialog.open(ModalComponent,{
       width: "50%",
-      height: "30%",
+      height: "43%",
       disableClose: true,
     })
 
