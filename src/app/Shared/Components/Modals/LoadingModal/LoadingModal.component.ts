@@ -7,6 +7,7 @@ import { MatProgressBar } from "@angular/material/progress-bar";
     imports:[MatProgressBar,MatDialogContent,MatDialogActions],
     templateUrl:"./LoadingModal.component.html",
     styleUrl:"./LoadingModal.component.scss",
+    standalone: true,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ModalComponent {

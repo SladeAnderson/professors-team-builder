@@ -1,7 +1,7 @@
 <mat-dialog-content class="loadingModal">
 
     <div class="currentStage">
-        <span>Loading Pokemon From Database...</span>
+        <span> {{loadingService.msg()}} </span>
     </div>
 
     <mat-progress-bar mode="buffer" [value]=""></mat-progress-bar>
