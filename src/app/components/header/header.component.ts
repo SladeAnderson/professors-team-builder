@@ -6,6 +6,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, computed, effect
     imports: [],
     templateUrl: "./header.component.html",
     styleUrls: ["./header.component.scss"],
+    standalone: true,
 })
 export class Header{
     constructor() {

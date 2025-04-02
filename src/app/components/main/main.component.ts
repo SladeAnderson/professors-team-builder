@@ -5,7 +5,8 @@ import { ChangeDetectionStrategy, Component } from "@angular/core";
     changeDetection: ChangeDetectionStrategy.OnPush,
     imports:[],
     templateUrl:"./main.component.html",
-    styleUrls:["./main.component.scss"]
+    styleUrls:["./main.component.scss"],
+    standalone: true,
 
 }) 
 export class MainComponent {

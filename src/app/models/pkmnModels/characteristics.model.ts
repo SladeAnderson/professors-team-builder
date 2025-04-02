@@ -1,4 +1,4 @@
-import { Description, NamedLink } from "./core.model";
+import { Description, NamedLink } from "../core.model";
 
 /**
  * Represents a characteristic of an entity with specific attributes.

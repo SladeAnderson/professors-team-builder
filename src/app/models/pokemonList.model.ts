@@ -298,7 +298,7 @@ interface stat {
  * @property slot - The slot number indicating the order of the type.
  * @property type - An object containing details about the type, represented by a `NamedLink`.
  */
-interface type {
+export interface type {
     /**
      * The slot number indicating the order of the type.
      */
