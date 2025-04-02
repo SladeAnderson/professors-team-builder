@@ -54,7 +54,7 @@ export class AppComponent implements OnDestroy,AfterViewInit {
         // add more to load here load the pokemon summary last.
 
         this.loadingService.updateMsg$("Fetching Pokemon Summary")
-        return this.Pokeapi.getLocalPokeSummary$().pipe(
+        return this.Pokeapi.getLocalPkmns$().pipe(
           tap(value => {
             this.loadingService.updateMsg$("Closing...")
             loadbarRef.close();
