@@ -3,7 +3,7 @@ import { RouterOutlet } from '@angular/router';
 import { Header } from './components/header/header.component';
 import { MatDialogModule,MatDialog } from '@angular/material/dialog';
 import { ModalComponent } from './Shared/Components/Modals/LoadingModal/LoadingModal.component';
-import { Pokeapi } from './services/pokeapi.service';
+import { pkmnService } from './services/pkmn.service';
 import { concatMap, map, Observable, Subscription, tap } from 'rxjs';
 import { halfPokemon } from './models/pokemonList.model';
 import { MainComponent } from "./components/main/main.component";
@@ -19,7 +19,7 @@ import { LoadingService } from './services/loading.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent implements OnDestroy,AfterViewInit {
-  constructor(private Pokeapi: Pokeapi, private loadingService: LoadingService) {}
+  constructor(private Pokeapi: pkmnService, private loadingService: LoadingService) {}
 
   ngAfterViewInit(): void {
     this.openDialog();

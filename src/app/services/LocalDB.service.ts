@@ -76,6 +76,9 @@ class LocalDB extends Dexie {
     statSum!: Dexie.Table<namedSummery, number>;
     typeSum!: Dexie.Table<namedSummery, number>;
     
+    // language's
+    langSummery!: Dexie.Table<namedSummery, number>;
+
     // ---------------| data tables |--------------- \\
     halfPokemon!: Dexie.Table<halfPokemon, string | number>;
     // add Complete Pokemon Table
