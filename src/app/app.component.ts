@@ -36,6 +36,12 @@ export class AppComponent implements OnDestroy,AfterViewInit {
   public subs = new Subscription;
 
 
+  fliterPkmnList() {
+    let filterdList = this.Pokeapi.sortPkmnListByGeneration(this.halfPokemonList(),"diamond");
+
+    console.log("Filtered Pokémon List: ", filterdList);
+  }
+
 
   openDialog():void {
     const dialogRef = this.dialog.open(ModalComponent,{
@@ -59,6 +65,7 @@ export class AppComponent implements OnDestroy,AfterViewInit {
             this.loadingService.updateMsg$("Closing...")
             loadbarRef.close();
             console.log("Local Poke Summary: ", value);
+            console.log("filterd: ", this.fliterPkmnList());
           })
         );   
       })

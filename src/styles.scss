@@ -1,4 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
+@use '@angular/material' as mat;
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+:root {
+    @include mat.tabs-overrides((
+        active-indicator-color: #EB4444,
+        active-label-text-color: #EB4444,
+        active-focus-indicator-color: #EB4444,
+        active-focus-label-text-color: #EB4444,
+
+    ));
+}

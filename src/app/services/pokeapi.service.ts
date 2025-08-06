@@ -78,6 +78,26 @@ export class Pokeapi {
         )
     }
 
+    public sortPkmnListByGeneration(pkmnList: halfPokemon[], generation: string): halfPokemon[] {
+        
+        return pkmnList.filter((pkmn) => {
+            
+            pkmn.game_indices.forEach((indice) => {
+                if (indice.version.name === generation) {
+                    return pkmn;
+                }
+                return false;
+            })
+
+        })
+    }
+
+    public sortPkmnListByGame(pkmnList: halfPokemon[], game: string): halfPokemon[] {
+        return new Array();
+    }
+
+
+
     // getting pokemon details from the localDB/pokeapi
 
     // Pkmn Berries

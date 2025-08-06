@@ -1,10 +1,16 @@
 <main class="main-screen">
-    <mat-tab-group>
+    <mat-tab-group selectedIndex="1">
         <mat-tab label="Teams">
-
+            <ng-template matTabContent>
+                <pkmn-viewer></pkmn-viewer>
+            </ng-template>
         </mat-tab>
         <mat-tab label="Builder">
-            
+            <ng-template matTabContent>
+                <pkmn-builder></pkmn-builder>
+            </ng-template>
         </mat-tab>
     </mat-tab-group>
+
+
 </main>
