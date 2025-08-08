@@ -66,8 +66,6 @@ export class teamService {
         )
     }
 
-
-
     public updateParty$(id: number ,name: string, game: string, newTeam: halfPokemon[] ) {
         // const localDB$ = scheduled(localDB.userTeams.toArray(), asyncScheduler);
 
@@ -96,9 +94,7 @@ export class teamService {
     }
     
     public deleteParty$() {
-        
+
     }
-
-
 
 }
