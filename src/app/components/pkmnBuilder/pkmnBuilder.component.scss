@@ -1,0 +1,45 @@
+$primary-color: #EB4444;
+
+.pkmn-builder-form {
+    padding: 2%;
+}
+
+.pkmn-form-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    gap: 8%;
+}
+
+.pkmn-team-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    gap: 2%;
+    margin-top: 9%;
+}
+
+.pkmn-card {
+    width: 9vw;
+    height: 9vw;
+}
+
+.pkmn-form-footer {
+    display: flex;
+}
+
+.team-strengths {
+    margin-top: 5%;
+}
+
+.team-weaknesses {
+    margin-top: 1%;
+}
+
+.submit-btn {
+    float: right;
+    border-radius: 15px;
+}

@@ -17,11 +17,12 @@ import { LoadingService } from './services/loading.service';
   styleUrl: './app.component.scss',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [Pokeapi, LoadingService]
 })
-export class AppComponent implements OnDestroy,AfterViewInit {
+export class AppComponent implements OnDestroy,OnInit {
   constructor(private Pokeapi: Pokeapi, private loadingService: LoadingService) {}
 
-  ngAfterViewInit(): void {
+  ngOnInit(): void {
     this.openDialog();
   }
 
@@ -34,14 +35,6 @@ export class AppComponent implements OnDestroy,AfterViewInit {
   public halfPokemonList = signal<halfPokemon[]>([]);
   public CurrentStage = signal<string>("ssss");
   public subs = new Subscription;
-
-
-  fliterPkmnList() {
-    let filterdList = this.Pokeapi.sortPkmnListByGeneration(this.halfPokemonList(),"diamond");
-
-    console.log("Filtered Pokémon List: ", filterdList);
-  }
-
 
   openDialog():void {
     const dialogRef = this.dialog.open(ModalComponent,{
@@ -65,7 +58,6 @@ export class AppComponent implements OnDestroy,AfterViewInit {
             this.loadingService.updateMsg$("Closing...")
             loadbarRef.close();
             console.log("Local Poke Summary: ", value);
-            console.log("filterd: ", this.fliterPkmnList());
           })
         );   
       })

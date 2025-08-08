@@ -1,0 +1,59 @@
+<form [formGroup]="formGroup" class="pkmn-builder-form">
+    <div class="pkmn-form-header">
+        <mat-form-field formControlName="teamName">
+            <mat-label>Name</mat-label>
+            <input matInput type="text" value="" />
+        </mat-form-field>
+        <mat-form-field formControlName="selectedGame">
+            <mat-select placeholder="Select Game">
+    
+               @for (pkmn of pkmnGames(); track $index) {
+                    <mat-option [value]="pkmn">{{ pkmn }}</mat-option>
+               }
+            </mat-select>
+        </mat-form-field>
+
+    </div>
+
+    <div class="pkmn-team-row">
+        <mat-card class="pkmn-card">
+            <mat-icon fontIcon="add"></mat-icon>
+        </mat-card>
+
+        <mat-card class="pkmn-card">
+            <mat-icon fontIcon="add"></mat-icon>
+        </mat-card>
+
+        <mat-card class="pkmn-card">
+            <mat-icon fontIcon="add"></mat-icon>
+        </mat-card>
+
+        <mat-card class="pkmn-card">
+            <mat-icon fontIcon="add"></mat-icon>
+        </mat-card>
+
+        <mat-card class="pkmn-card">
+            <mat-icon fontIcon="add"></mat-icon>
+        </mat-card>
+
+        <mat-card class="pkmn-card">
+            <mat-icon fontIcon="add"></mat-icon>
+        </mat-card>
+    </div>
+
+    <div class="team-strengths">
+        <label>Strengths: </label>
+     
+    </div>
+
+    <div class="team-weaknesses">
+        <label>Weaknesses: </label>
+        
+    </div>
+    
+    <button mat-flat-button class="submit-btn">
+        Create
+    </button>
+
+
+</form>

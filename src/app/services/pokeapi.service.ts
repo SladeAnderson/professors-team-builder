@@ -78,22 +78,35 @@ export class Pokeapi {
         )
     }
 
-    public sortPkmnListByGeneration(pkmnList: halfPokemon[], generation: string): halfPokemon[] {
-        
-        return pkmnList.filter((pkmn) => {
-            
-            pkmn.game_indices.forEach((indice) => {
-                if (indice.version.name === generation) {
-                    return pkmn;
-                }
-                return false;
-            })
+    public sortPkmnListByGame(generation: string): Observable<halfPokemon[]> {
+        const pkmnList$ = this.getLocalPokeSummary$();
 
-        })
+        return pkmnList$.pipe(
+            map((list) => {
+                return list.filter((pkmn) => {
+                    return pkmn.game_indices.some((game) => game.version.name === generation);
+                });
+            }),
+            catchError((error) => {
+                console.error("Error filtering Pokémon list by game:", error);
+                return of([]);
+            })
+        )
+
     }
 
-    public sortPkmnListByGame(pkmnList: halfPokemon[], game: string): halfPokemon[] {
-        return new Array();
+    public getListOfGames$(): Observable<string[]> {
+        console.log("Fetching list of Pokémon games...");
+        return this.getLocalPokeSummary$().pipe(
+            concatMap((list)=> {
+                const games = list.flatMap((pkmn) => 
+                    pkmn.game_indices.map((game) => game.version.name).sort((a, b) => a > b ? 1 : -1)
+                );
+                
+                return of([...new Set(games)]); // Remove duplicates
+            })
+        )
+
     }
 
 
