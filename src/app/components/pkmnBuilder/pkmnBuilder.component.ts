@@ -9,6 +9,7 @@ import { Pokeapi } from "../../services/pokeapi.service";
 import { CommonModule } from "@angular/common";
 import { MatCardModule } from "@angular/material/card";
 import { MatIconModule } from "@angular/material/icon";
+import { MatChipsModule } from "@angular/material/chips"
 
 @Component({
     selector:"pkmn-builder",
@@ -22,6 +23,7 @@ import { MatIconModule } from "@angular/material/icon";
         CommonModule,
         MatCardModule,
         MatIconModule,
+        MatChipsModule,
     ],
     templateUrl:"./pkmnBuilder.component.html",
     styleUrls:["./pkmnBuilder.component.scss"],

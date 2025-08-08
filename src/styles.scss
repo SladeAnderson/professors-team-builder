@@ -18,3 +18,149 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
         filled-container-color: $primary-color,
     ));
 }
+
+// pkmn type based colors for the chips
+
+.fire-type {
+    @include mat.chips-overrides((
+        outline-color: #ff0000,
+        label-text-color: #fff,
+        elevated-container-color: #ff0000
+    ))
+}
+
+.water-type {
+    @include mat.chips-overrides((
+        outline-color: #4471eb,
+        label-text-color: #fff,
+        elevated-container-color: #4471eb
+    ))
+}
+
+.electric-type {
+    @include mat.chips-overrides((
+        outline-color: #dcdf34,
+        label-text-color: #fff,
+        elevated-container-color: #dcdf34,
+    ))
+}
+
+.grass-type {
+    @include mat.chips-overrides((
+        outline-color: #3bd636,
+        label-text-color: #fff,
+        elevated-container-color: #3bd636
+    ))
+}
+
+.ice-type {
+    @include mat.chips-overrides((
+        outline-color: #5eebeb,
+        label-text-color: #fff,
+        elevated-container-color: #5eebeb
+    ))
+}
+
+.fighting-type {
+    @include mat.chips-overrides((
+        outline-color: #ff4800,
+        label-text-color: #fff,
+        elevated-container-color: #ff4800
+    ))
+}
+
+.poison-type {
+    @include mat.chips-overrides((
+        outline-color: #5f4083,
+        label-text-color: #fff,
+        elevated-container-color: #5f4083
+    ))
+}
+
+.ground-type {
+    @include mat.chips-overrides((
+        outline-color: #754b23,
+        label-text-color: #fff,
+        elevated-container-color: #754b23
+    ))
+}
+
+.flying-type {
+    @include mat.chips-overrides((
+        outline-color: #77a3b4,
+        label-text-color: #fff,
+        elevated-container-color: #77a3b4
+    ))
+}
+
+.phychic-type {
+    @include mat.chips-overrides((
+        outline-color: #f14ee9,
+        label-text-color: #fff,
+        elevated-container-color: #f14ee9
+    ))
+}
+
+.bug-type {
+    @include mat.chips-overrides((
+        outline-color: #14682d,
+        label-text-color: #fff,
+        elevated-container-color: #14682d,
+    ))
+}
+
+.rock-type {
+    @include mat.chips-overrides((
+        outline-color: #502105,
+        label-text-color: #fff,
+        elevated-container-color: #502105
+    ))
+}
+
+.ghost-type {
+    @include mat.chips-overrides((
+        outline-color: #13083d,
+        label-text-color: #fff,
+        elevated-container-color: #13083d
+    ))
+}
+
+.dragon-type {
+    @include mat.chips-overrides((
+        outline-color: #001675,
+        label-text-color: #fff,
+        elevated-container-color: #001675
+    ))
+}
+
+.dark-type {
+    @include mat.chips-overrides((
+        outline-color: #030718,
+        label-text-color: #fff,
+        elevated-container-color: #030718,
+    ))
+}
+
+.steel-type {
+    @include mat.chips-overrides((
+        outline-color: #008f64,
+        label-text-color: #fff,
+        elevated-container-color: #008f64
+    ))
+}
+
+.fairy-type {
+    @include mat.chips-overrides((
+        outline-color: #c22b83,
+        label-text-color: #fff,
+        elevated-container-color: #c22b83
+    ))
+}
+
+.normal-type {
+    @include mat.chips-overrides((
+        outline-color: #3d414d,
+        label-text-color: #fff,
+        elevated-container-color: #3d414d
+    ))
+}
