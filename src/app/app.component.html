@@ -1,9 +1,12 @@
-
-<main class="main-body">
-    <app-header></app-header>
-    <main-screen></main-screen>
+<main class="main-body" [style.width]="width()" [style.height]="height()">
+    <div style="position: absolute; 
+    inset: 0; 
+    background: radial-gradient(ellipse at 30% 20%, rgba(255,255,255,.15), transparent 50%);
+    " class="Surface">
+        <app-header></app-header>
+        <div class="HingeLine"></div>
+        <main-screen></main-screen>
+    </div>
 </main>
-
 <!-- end -->
 
-<router-outlet></router-outlet>

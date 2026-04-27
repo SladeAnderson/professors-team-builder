@@ -1,4 +1,4 @@
-import { AfterContentInit, AfterViewInit, ChangeDetectionStrategy, Component, inject, OnDestroy, OnInit, Signal, signal } from '@angular/core';
+import { AfterContentInit, AfterViewInit, ChangeDetectionStrategy, Component, computed, inject, OnDestroy, OnInit, Signal, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Header } from './components/header/header.component';
 import { MatDialogModule,MatDialog } from '@angular/material/dialog';
@@ -9,35 +9,41 @@ import { halfPokemon } from './models/pokemonList.model';
 import { MainComponent } from "./components/main/main.component";
 import { loadBar } from './Shared/Components/Modals/loadingBar/loadingBar.component';
 import { LoadingService } from './services/loading.service';
+import { IsMobile } from './services/isMobile.service';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Header, MatDialogModule, MainComponent],
+  imports: [RouterOutlet, Header, MatDialogModule, MainComponent,],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent implements OnDestroy,AfterViewInit {
-  constructor(private Pokeapi: Pokeapi, private loadingService: LoadingService) {}
-
-  ngAfterViewInit(): void {
-    this.openDialog();
-  }
-
-  ngOnDestroy(): void {
-    this.subs.unsubscribe();
-  }
-
   private dialog = inject(MatDialog);
 
   public halfPokemonList = signal<halfPokemon[]>([]);
   public CurrentStage = signal<string>("ssss");
   public subs = new Subscription;
 
+  public mobile = new IsMobile();
 
+  public isMobile = computed(() => this.mobile.mobileCheck());
 
-  openDialog():void {
+  public width = computed(() => !this.isMobile() ? "390px" : "100%");
+  public height = computed(() => !this.isMobile() ? "780px" : "100%");
+  
+  constructor(private Pokeapi: Pokeapi, private loadingService: LoadingService) {}
+
+  public ngAfterViewInit(): void {
+    this.openDialog();
+  }
+
+  public ngOnDestroy(): void {
+    this.subs.unsubscribe();
+  }
+
+  public openDialog():void {
     const dialogRef = this.dialog.open(ModalComponent,{
       width: "50%",
       height: "43%",
