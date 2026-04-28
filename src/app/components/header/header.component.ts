@@ -17,8 +17,6 @@ export class Header implements OnInit, OnDestroy{
 
     public shouldBlink = signal(false);
 
-    
-
     constructor() {
         
     }

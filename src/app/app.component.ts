@@ -13,7 +13,7 @@ import { IsMobile } from './services/isMobile.service';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Header, MatDialogModule, MainComponent,],
+  imports: [Header, MatDialogModule, MainComponent,],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
   standalone: true,
@@ -23,17 +23,16 @@ export class AppComponent implements OnDestroy,AfterViewInit {
   private dialog = inject(MatDialog);
 
   public halfPokemonList = signal<halfPokemon[]>([]);
-  public CurrentStage = signal<string>("ssss");
+  public TeamDexMode = signal<string>("");
+  public TotalPkmn = signal<number>(0);
+  public CurrentPkmnAmt = signal<number>(0);
   public subs = new Subscription;
 
-  public mobile = new IsMobile();
-
-  public isMobile = computed(() => this.mobile.mobileCheck());
-
-  public width = computed(() => !this.isMobile() ? "390px" : "100%");
-  public height = computed(() => !this.isMobile() ? "780px" : "100%");
+  public isMobile = computed<boolean>(() => this.mobile.mobileCheck());
+  public width = computed<string>(() => !this.isMobile() ? "390px" : "100%");
+  public height = computed<string>(() => !this.isMobile() ? "780px" : "100%");
   
-  constructor(private Pokeapi: Pokeapi, private loadingService: LoadingService) {}
+  constructor(private Pokeapi: Pokeapi, private loadingService: LoadingService, private mobile: IsMobile) {}
 
   public ngAfterViewInit(): void {
     this.openDialog();

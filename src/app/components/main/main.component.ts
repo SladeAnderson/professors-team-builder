@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from "@angular/core";
+import { ChangeDetectionStrategy, Component, input } from "@angular/core";
 import { RouterOutlet } from "@angular/router";
 
 @Component({
@@ -11,6 +11,12 @@ import { RouterOutlet } from "@angular/router";
 
 }) 
 export class MainComponent {
+
+    // props \\
+    public mode = input<string>("TEAM");
+    public PkmnTotal = input<number>(0);
+    public CurrentPkmnAmt = input<number>(0);
+
     constructor() {}
 
 }

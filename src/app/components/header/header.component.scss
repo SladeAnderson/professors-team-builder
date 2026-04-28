@@ -43,10 +43,11 @@
 }
 
 .little-circle {
-    width: 8px;
-    height: 8px;
+    width: 6px;
+    height: 6px;
     border: 1px solid black;
     border-radius: 50%;
+    box-shadow: inset 0 1px 1px rgba(255,255,255,.4); 
 }
 
 .BrandText {
@@ -55,5 +56,10 @@
     color: rgba(255,255,255,.85);
     letter-spacing: 0.1em;
     text-shadow: 0 1px 0 rgba(0,0,0,.5);
+}
+
+.little-circle-box {
+    display: flex;
+    gap: 5px;
 }
 

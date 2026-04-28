@@ -1,4 +1,13 @@
 <main class="main-screen">
+    <div class="screen-corner">
+        <span class="recording-label">
+            <div class="indicator-light"></div>
+            <div class="indicator-label">REC</div>
+        </span>
+        <div class="indicator-mode" >
+            {{mode()}} · {{CurrentPkmnAmt()}}/{{PkmnTotal()}}
+        </div>
+    </div>
     a
 
     <router-outlet></router-outlet>

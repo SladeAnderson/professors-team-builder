@@ -18,12 +18,15 @@ $background-color: #1a1a1a;
 
 .screen-corner {
     position: absolute;
-    top: 6;
-    left: 12;
+    top: 6px;
+    left: 12px;
     display: flex;
     gap: 4px;
+    justify-content: space-between;
     align-items: center;
     height: 14px;
+    width: 96%;
+    
 }
 
 .indicator-light {
@@ -40,4 +43,24 @@ $background-color: #1a1a1a;
     color: #7a7a7a;
     letter-spacing: 0.12em;
     font-weight: 700;
+}
+
+.indicator-mode {
+    font-family: monospace;
+    font-size: 9px;
+    color: #7a7a7a;
+    letter-spacing: 0.12em;
+    font-weight: 700;
+    position: absolute;
+    top: 6px;
+    right: 12px;
+    height: 14px;
+    line-height: 14px;
+}
+
+.recording-label {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 4px;
 }
