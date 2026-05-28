@@ -1,0 +1,28 @@
+<div class="bottom-controls-area">
+    <div class="speaker-grille">
+        @for (item of speakerArr; track $index) {
+            <div class="speaker"></div>
+        }
+    </div>
+
+    <div class="dpad-wrapper">
+        <dpad 
+            [onClickUp]="onClickDpadUp"
+            [onClickDown]="onClickDpadDown"
+            [onClickLeft]="onClickDpadLeft"
+            [onClickRight]="onClickDpadRight"
+        ></dpad>
+    </div>
+
+    <div class="RoundButtons">
+        <round-button label="B" color="#1a1a1a" [onPress]="onClickRoundB"></round-button>
+        <round-button label="A" color="#dc2626" [onPress]="onClickRoundA"></round-button>
+    </div>
+
+    <div class="pillButtonsWrapper">
+        <pill-button label="SELECT" [onClick]="onClickSelect"></pill-button>
+        <pill-button label="START" [onClick]="onClickStart"></pill-button>
+    </div>
+
+    <div class="speaker-line"></div>
+</div>

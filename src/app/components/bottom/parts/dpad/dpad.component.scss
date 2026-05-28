@@ -1,0 +1,46 @@
+@mixin arm {
+    position: absolute;
+    background: linear-gradient(180deg, #2a2a2a, #0a0a0a);
+    box-shadow: inset 0 1px 2px rgba(255,255,255,.2), inset 0 -1px 2px rgba(0,0,0,.6), 0 1px 2px rgba(0,0,0,.4);
+}
+
+.DPad {
+    position: relative;
+    width: 92px;
+    height: 92px;
+}
+
+.HorizontalArm {
+    @include arm;
+    top: 32px;
+    left: 0;
+    width: 92px;
+    height: 28px;
+    border-radius: 4px;
+}
+
+.VerticalArm {
+    @include arm;
+    left: 32px;
+    top: 0;
+    width: 28px;
+    height: 92px;
+    border-radius: 4px;
+}
+
+.centerDot {
+    position: absolute;
+    left: 38px;
+    top: 38px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #1a1a1a;
+    box-shadow: inset 0 1px 2px rgba(0,0,0,.8);
+}
+
+.clickTarget {
+    position: absolute;
+    cursor: pointer;
+}
+

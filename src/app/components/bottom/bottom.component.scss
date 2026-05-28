@@ -1,0 +1,64 @@
+// bottom-controls-area
+
+.bottom-controls-area {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 230px;
+    padding: 14px 22px 22px 22px;
+}
+
+.speaker-grille {
+    position: absolute;
+    right: 22px;
+    bottom: 22px;
+    display: grid;
+    grid-template-columns: repeat(4, 4px);
+    gap: 6px;
+}
+
+.speaker {
+    width: 4px;
+    height: 18px;
+    background: rgba(0,0,0,.6);
+    border-radius: 2px;
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.6);
+}
+
+// Decorative speaker line above the bottom area 
+
+.speaker-line {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: rgba(0,0,0,.25);
+    box-shadow: 0 1px 9 rgba(255,255,255,.15);
+}
+
+.dpad-wrapper {
+    position: absolute;
+    left: 28px;
+    bottom: 30px;
+    width: 92px;
+    height: 92px;
+}
+
+.RoundButtons {
+    position: absolute;
+    right: 110px;
+    bottom: 90px;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.pillButtonsWrapper {
+    position: absolute;
+    left: 130px;
+    bottom: 38px;
+    display: flex;
+    gap: 10px;
+}

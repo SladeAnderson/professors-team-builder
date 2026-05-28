@@ -16,6 +16,8 @@ export class MainComponent {
     public mode = input<string>("TEAM");
     public PkmnTotal = input<number>(0);
     public CurrentPkmnAmt = input<number>(0);
+    
+
 
     constructor() {}
 
