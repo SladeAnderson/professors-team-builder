@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component, computed, inject, OnDestroy, OnInit, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
 import { Header } from './components/header/header.component';
 import { MainComponent } from './components/main/main.component';
 import { IsMobile } from './services/isMobile.service';

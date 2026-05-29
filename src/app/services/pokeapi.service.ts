@@ -5,6 +5,7 @@ import { asyncScheduler, catchError, combineLatest, concatMap, from, map, mergeM
 import { HttpClient, HttpContext } from "@angular/common/http";
 import { halfPokemon } from "../models/pokemonList.model";
 import { Link } from "../models/core.model";
+import { TypeModel } from "../models/pkmnModels/pkmnType.model";
 
 @Injectable({
     providedIn:"root",
@@ -74,6 +75,38 @@ export class Pokeapi {
                 }
 
                 return of(value);
+            })
+        )
+    }
+
+    public getLocalPokeTypes$(type: string): Observable<TypeModel|null> {
+        const localDB$ = scheduled(localDB.types.toArray(), asyncScheduler);
+
+        return localDB$.pipe(
+            concatMap((value) => {
+
+                if (value.length === 0) {
+                    console.log("Local DB is empty, \n Fetching types from PokeAPI...");
+
+                    return this.http.get<TypeModel>(`https://pokeapi.co/api/v2/type/${type}`).pipe(
+                        concatMap((typeData) => {
+                            let req = scheduled(localDB.types.add(typeData), asyncScheduler);
+
+                            return combineLatest([of(typeData), req]);
+                        }),
+                        map(([typeData, _]) => {
+                            return typeData;
+                        })
+                    )
+                }
+
+                const foundType = value.find((t) => t.name === type);
+
+                if (foundType) {
+                    return of(foundType);
+                }
+                
+                return of(null);
             })
         )
     }
