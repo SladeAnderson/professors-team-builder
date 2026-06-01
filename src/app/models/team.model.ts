@@ -1,20 +1,28 @@
 export interface teamMember {
-    // The unique identifier for the team member,
+    // The unique identifier for the pokemon,
     id: string;
-    // The name of the team member,
+    // The name of the pokemon,
     name: string;
-    // The sprite of the team member,
+    // The sprite of the pokemon,
     sprite: string;
+    // The details of the pokemon,
+    details: pkmnDetails;
 }
 
 export interface pkmnDetails {
-    // The unique identifier for the pokemon,
-    id: number;
     types: string[];
+
+    moves: number[];
 
     weaknesses: string[];
     resistances: string[];
     immunities: string[];
 
     matchupChart: Record<string, number>;
+}
+
+export interface pkmnTeam {
+    id: string;
+    name: string;
+    pokemon: teamMember[];
 }
