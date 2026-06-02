@@ -14,6 +14,12 @@ export interface pkmnDetails {
 
     moves: number[];
 
+    roles: string[];
+
+    abilities: string[];
+
+    stats: Record<string, number>;
+
     weaknesses: string[];
     resistances: string[];
     immunities: string[];
@@ -24,5 +30,6 @@ export interface pkmnDetails {
 export interface pkmnTeam {
     id: string;
     name: string;
+
     pokemon: teamMember[];
 }
