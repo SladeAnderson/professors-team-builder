@@ -14,7 +14,7 @@ export class MainComponent {
 
     // props \\
     public mode = input<string>("TEAM");
-    public PkmnTotal = input<number>(0);
+    public PkmnTotal = input<number>(6);
     public CurrentPkmnAmt = input<number>(0);
     
 
