@@ -1,0 +1,22 @@
+<div class="metaContainer">
+    <div class="styleizedHeader">
+        <div class="metaTitle">
+            <div class="topLabel">SELECT MENU</div>
+            <div class="bottomLabel">METADEX</div>
+        </div>
+
+        <button class="closeButton">x</button>
+    </div>
+
+    <button>New Profile</button>
+    <button>Import</button>
+    <button>Export</button>
+
+    <h2>Current Profiles</h2>
+
+    @for (item of metaProfiles(); track $index) {
+        <div>
+            {{item.name}}
+        </div>
+    }
+</div>

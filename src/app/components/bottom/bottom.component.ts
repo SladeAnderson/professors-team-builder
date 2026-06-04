@@ -1,7 +1,8 @@
-import { ChangeDetectionStrategy, Component } from "@angular/core";
+import { ChangeDetectionStrategy, Component, inject } from "@angular/core";
 import { DpadComponent } from "./parts/dpad/dpad.component";
 import { RoundButtonComponent } from "./parts/roundButton/roundButton.component";
 import { PillButtonComponent } from "./parts/pillButton/pillButton.component";
+import { Router } from "@angular/router";
 
 @Component({
     selector: "bottom-area",
@@ -12,6 +13,7 @@ import { PillButtonComponent } from "./parts/pillButton/pillButton.component";
     standalone: true,
 })
 export class BottomComponent {
+    public router = inject(Router);
 
     public speakerArr = new Array(16).fill(0);
 
@@ -52,6 +54,7 @@ export class BottomComponent {
     }
 
     public onClickSelect = (): void => {
+        this.router.navigate(["/meta-profiles"]);
         console.log("Select");
     }
 }

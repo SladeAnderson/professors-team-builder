@@ -1,0 +1,49 @@
+.styleizedHeader {
+    background: rgb(15, 23, 42);
+    color: #fff;
+    border-bottom: 2px solid rgb(220, 38, 38);
+    display: flex;
+    align-items: center;
+    grid-area: 8px;
+    padding: 8px 10px;
+    font-family: 'VT323', monospace;
+}
+
+.metaTitle {
+    width: 100%;
+}
+
+.topLabel {
+    font-size: 12px;
+    opacity: 0.7;
+    font-weight: 700;
+}
+
+.bottomLabel {
+    font-size: 13px;
+    font-weight: 800;
+}
+
+.closeButton {  
+    background: rgba(255, 255, 255, 0.15);
+    border: medium;
+    color: #fff;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.metaContainer {
+    // background: #f0f4e8;
+    border: 2px solid #1a1a1a;
+    border-radius: 4px;
+    box-shadow:
+        inset 0 0 12px rgba(0,0,0,.15);
+    background: linear-gradient(
+        to bottom,
+        #e7efe2,
+        #d6dfd1
+    );
+    height: 100%;
+}

@@ -39,7 +39,7 @@ export interface MetaEntry {
     /**
      * The unique identifier for the meta entry
      */
-    id: number;
+    id: string;
     /**
      * The name of the meta entry
      */

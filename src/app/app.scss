@@ -7,7 +7,7 @@ $background-color: linear-gradient(180deg, #ef3a3a 0%, #c41818 50%, #a01010 100%
     width: 100vw;
     height: 100vh;
     z-index: 0;
-    font-family: ui-sans-serif, system-ui, sans-serif;
+    // font-family: ui-sans-serif, system-ui, sans-serif;
     box-shadow: 0 0 0 2px #4a0606,
         0 0 0 4px #1a1a1a,
         inset 0 2px 8px rgba(255,255,255,.25),
@@ -54,7 +54,7 @@ $background-color: linear-gradient(180deg, #ef3a3a 0%, #c41818 50%, #a01010 100%
     padding: 0;
     background: radial-gradient(ellipse at center, #2a2a2a 0%, #0a0a0a 100%);
     box-sizing: border-box;
-    font-family: ui-sans-serif, system-ui, sans-serif;
+    font-family: 'VT323', monospace;
     display: flex;
     align-items: center;
 }
