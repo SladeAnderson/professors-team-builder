@@ -8,15 +8,29 @@
         <button class="closeButton">x</button>
     </div>
 
-    <button>New Profile</button>
-    <button>Import</button>
-    <button>Export</button>
+    <mat-tab-group class="metaTabGroup" >
+        <mat-tab label="Profiles">
+            <div class="profilesTab">                
+                <h2>Current Profiles</h2>
+                
+                
+            
+                @for (item of metaProfiles(); track $index) {
+                    <div>
+                        {{item.name}}
+                    </div>
+                }
+            </div>
+        </mat-tab>
+        <mat-tab label="Import">
 
-    <h2>Current Profiles</h2>
+        </mat-tab>
+        <mat-tab label="Export">
+            
+        </mat-tab>
+    </mat-tab-group>
 
-    @for (item of metaProfiles(); track $index) {
-        <div>
-            {{item.name}}
-        </div>
-    }
+    <div class="metaFooter">
+        <button matButton="outlined" class="newProfileBtn">New Profile</button>
+    </div>
 </div>

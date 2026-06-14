@@ -1,12 +1,14 @@
 import { ChangeDetectionStrategy, Component, signal } from "@angular/core";
 import { MetaProfile } from "../../models/meta.models";
+import { MatTabsModule } from "@angular/material/tabs";
+import { MatButtonModule } from "@angular/material/button";
 
 @Component({
     selector:"meta-profiles",
     templateUrl:"./metaProfiles.component.html",
     styleUrls:["./metaProfiles.component.scss"],
     standalone: true,
-    imports: [],
+    imports: [MatTabsModule, MatButtonModule],
     changeDetection:  ChangeDetectionStrategy.OnPush,
 })
 export class MetaProfilesComponent {
